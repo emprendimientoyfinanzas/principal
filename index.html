@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnEmprender - En Reconstrucción</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Bloque A: Estado de Reconstrucción */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Bloque B: Storytelling - Video 2010 */
+        .video-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .video-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-section p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: #000;
+            border: 1px solid var(--border-color);
+        }
+
+        /* NOTA: Reemplazar el src con el enlace de inserción (embed) de tu video */
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Bloque C: Grid de Herramientas Activas */
+        .tools-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            text-align: center;
+            background-color: var(--accent);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Bloque A: Estado de Reconstrucción -->
+        <header>
+            <span class="badge">Evolucionando</span>
+            <h1>EnEmprender</h1>
+            <p>Estamos reconstruyendo nuestro ecosistema digital de herramientas para emprendedores. Muy pronto volveremos con una experiencia completamente renovada.</p>
+        </header>
+
+        <!-- Bloque B: Storytelling del Origen (Video 2010) -->
+        <section class="video-section">
+            <h2>Nuestras Raíces: Versión 2010</h2>
+            <p>Mientras preparamos las nuevas mejoras, te invitamos a realizar un recorrido por nuestros orígenes y conocer cómo lucía la primera versión web de nuestra plataforma.</p>
+            
+            <div class="video-wrapper">
+                <!-- Reemplazar "tu-video-id" por el ID real de tu video en YouTube, Vimeo o tu enlace de Loom/Drive -->
+                <iframe src="https://www.youtube.com/embed/tu-video-id" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- Bloque C: Acceso a Herramientas Activas en Subcarpetas -->
+        <section class="tools-section">
+            <h2>Herramientas Activas</h2>
+            <div class="grid">
+                
+                <!-- Herramienta 1 -->
+                <div class="card">
+                    <h3>Salud Financiera</h3>
+                    <p>Evalúa el estado financiero actual de tu proyecto y toma decisiones informadas para su crecimiento.</p>
+                    <a href="/salud-financiera" class="btn">Ingresar</a>
+                </div>
+
+                <!-- Herramienta 2 -->
+                <div class="card">
+                    <h3>Simulador Pago Impuesto Renta</h3>
+                    <p>Calcula una estimación del impuesto de renta de tu actividad comercial de forma sencilla.</p>
+                    <a href="/simulador-renta" class="btn">Ingresar</a>
+                </div>
+
+                <!-- Herramienta 3 -->
+                <div class="card">
+                    <h3>Gestión de la Privacidad de Datos</h3>
+                    <p>Capacitación y simulador interactivo para la correcta gestión de datos personales en tu negocio.</p>
+                    <a href="/gestion-privacidad" class="btn">Ingresar</a>
+                </div>
+
+                <!-- Herramienta 4 -->
+                <div class="card">
+                    <h3>Sistema Financiero Colombiano</h3>
+                    <p>Guía y simulador del funcionamiento del ecosistema bancario y financiero nacional.</p>
+                    <a href="/sistema-financiero" class="btn">Ingresar</a>
+                </div>
+
+                <!-- Herramienta 5 -->
+                <div class="card">
+                    <h3>Evaluación Financiera</h3>
+                    <p>Simulador técnico para evaluar la viabilidad financiera de tus proyectos o inversiones de emprendimiento.</p>
+                    <a href="/evaluacion-financiera" class="btn">Ingresar</a>
+                </div>
+
+                <!-- Herramienta 6 -->
+                <div class="card">
+                    <h3>Taller Virtual Educación Financiera</h3>
+                    <p>Espacio interactivo de aprendizaje diseñado para potenciar tus habilidades en finanzas personales y corporativas.</p>
+                    <a href="/taller-financiero" class="btn">Ingresar</a>
+                </div>
+
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 EnEmprender. Todos los derechos reservados. Alojado de forma segura en GitHub Pages.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

@@ -3,16 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnEmprender - En Reconstrucción</title>
+    <title>EnEmprender - Ecosistema de Emprendimiento</title>
+    <!-- Importación de Montserrat para una tipografía moderna y geométrica -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #3b82f6;
-            --accent-hover: #2563eb;
-            --border-color: #334155;
+            /* Paleta de colores minimalista de alto contraste */
+            --bg-academic: #ffffff; /* Fondo blanco puro para fusionar el logo */
+            --card-bg: #ffffff;
+            --text-charcoal: #1e293b; /* Gris oscuro para máxima legibilidad */
+            --text-muted: #475569; /* Gris medio con excelente contraste */
+            --crimson-slogan: #b31d1d; /* Rojo carmesí para el eslogan */
+            --border-color: #cbd5e1; /* Borde gris definido para destacar tarjetas */
+            
+            /* Botón Azul Claro con Texto Negro */
+            --blue-btn-bg: #bae6fd;
+            --blue-btn-hover: #7dd3fc;
+            --blue-btn-text: #000000;
+            
+            /* Color de acento de la Escuela (Bronce/Cobre) */
+            --bronce-primary: #a3662f;
         }
 
         * {
@@ -22,81 +35,105 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-academic);
+            color: var(--text-charcoal);
+            font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
-            padding: 2rem 1rem;
+            padding: 4.5rem 1rem;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
         }
 
-        /* Bloque A: Estado de Reconstrucción */
+        /* Cabecera optimizada para el nuevo Isotipo */
         header {
             text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            margin-bottom: 4.5rem;
         }
 
-        .badge {
+        /* Contenedor adaptado para el logo con fondo blanco y sombra 3D nativa */
+        .logo-container {
+            max-width: 190px; /* Tamaño ideal para apreciar los detalles del metalizado */
+            margin: 0 auto 1.5rem auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.03); /* Efecto interactivo suave al pasar el cursor */
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .logo-fallback {
+            font-weight: 800;
+            color: var(--bronce-primary);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Estilo para el Eslogan Carmesí */
+        .slogan {
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: var(--crimson-slogan);
+            margin-top: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        /* Banner de estado de reconstrucción */
+        .rebuilding-banner {
             display: inline-block;
-            background-color: rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 0.45rem 1.3rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 2rem;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid #fca5a5;
         }
 
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            letter-spacing: -0.025em;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Bloque B: Storytelling - Video 2010 */
+        /* Sección Storytelling (Video 2010) */
         .video-section {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 3rem;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
         }
 
         .video-section h2 {
             font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
+            color: var(--text-charcoal);
         }
 
         .video-section p {
             color: var(--text-muted);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
             font-size: 0.95rem;
+            font-weight: 400;
         }
 
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            padding-bottom: 56.25%; /* 16:9 */
             height: 0;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 12px;
             background-color: #000;
-            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
         }
 
         .video-wrapper iframe {
@@ -108,17 +145,19 @@
             border: 0;
         }
 
-        /* Bloque C: Grid de Herramientas Activas */
+        /* Sección de Herramientas Activas */
         .tools-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
             text-align: center;
+            color: var(--text-charcoal);
         }
 
         .grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 1.8rem;
         }
 
         @media (min-width: 640px) {
@@ -130,53 +169,68 @@
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
+            border-top: 4px solid var(--bronce-primary);
+            border-radius: 16px;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.015);
         }
 
         .card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.05);
+            border-color: #94a3b8;
         }
 
         .card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--text-charcoal);
         }
 
         .card p {
             color: var(--text-muted);
             font-size: 0.9rem;
-            margin-bottom: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1.8rem;
             flex-grow: 1;
+            line-height: 1.5;
         }
 
+        /* Botón Azul Claro con Texto Negro en Mayúsculas */
         .btn {
             display: inline-block;
             text-align: center;
-            background-color: var(--accent);
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            background-color: var(--blue-btn-bg);
+            color: var(--blue-btn-text);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
             text-decoration: none;
             font-size: 0.9rem;
-            font-weight: 500;
-            transition: background-color 0.2s;
+            font-weight: 700; /* Alta legibilidad */
+            box-shadow: 0 4px 10px rgba(186, 230, 253, 0.3);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: background-color 0.25s, transform 0.2s, box-shadow 0.2s;
         }
 
         .btn:hover {
-            background-color: var(--accent-hover);
+            background-color: var(--blue-btn-hover);
+            color: var(--blue-btn-text);
+            box-shadow: 0 6px 16px rgba(125, 211, 252, 0.5);
+            transform: translateY(-1px);
         }
 
         footer {
             text-align: center;
-            margin-top: 4rem;
+            margin-top: 6rem;
             color: var(--text-muted);
             font-size: 0.85rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
@@ -184,17 +238,23 @@
 
     <div class="container">
         
-        <!-- Bloque A: Estado de Reconstrucción -->
+        <!-- Cabecera Minimalista e Institucional -->
         <header>
-            <span class="badge">Evolucionando</span>
-            <h1>EnEmprender</h1>
-            <p>Estamos reconstruyendo nuestro ecosistema digital de herramientas para emprendedores. Muy pronto volveremos con una experiencia completamente renovada.</p>
+            <div class="logo-container">
+                <!-- Se cargará tu logo con fondo blanco 'logo.png' de manera impecable -->
+                <img src="logo.png" alt="Logo EnEmprender" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="logo-fallback" style="display:none;">eE</span>
+            </div>
+            
+            <p class="slogan">"En emprender está la solución"</p>
+            
+            <span class="rebuilding-banner">Fase de Reconstrucción Digital</span>
         </header>
 
         <!-- Bloque B: Storytelling del Origen (Video 2010) -->
         <section class="video-section">
             <h2>Nuestras Raíces: Versión 2010</h2>
-            <p>Mientras preparamos las nuevas mejoras, te invitamos a realizar un recorrido por nuestros orígenes y conocer cómo lucía la primera versión web de nuestra plataforma.</p>
+            <p>Mientras preparamos las nuevas mejoras de nuestro ecosistema, te invitamos a realizar un recorrido por nuestros orígenes y conocer cómo lucía la primera versión web de la plataforma.</p>
             
             <div class="video-wrapper">
                 <!-- Video de Storytelling (enlace al video portafolio) -->
@@ -204,63 +264,63 @@
 
         <!-- Bloque C: Acceso a Herramientas Activas en Subcarpetas (Monorepo) -->
         <section class="tools-section">
-            <h2>Herramientas Activas</h2>
+            <h2>Herramientas Académicas Activas</h2>
             <div class="grid">
                 
-                <!-- Herramienta 1 -->
+                <!-- Herramienta 1 (Salud Financiera -> apunta a /isf/ en nueva ventana) -->
                 <div class="card">
                     <h3>Salud Financiera</h3>
                     <p>Evalúa el estado financiero actual de tu proyecto y toma decisiones informadas para su crecimiento.</p>
-                    <a href="/midinero/" class="btn">Ingresar</a>
+                    <a href="/isf/" target="_blank" rel="noopener noreferrer" class="btn">INGRESAR</a>
                 </div>
 
-                <!-- Herramienta 2 -->
+                <!-- Herramienta 2 (Impuesto Renta -> apunta a /renta/ en nueva ventana) -->
                 <div class="card">
                     <h3>Simulador Pago Impuesto Renta</h3>
                     <p>Calcula una estimación del impuesto de renta de tu actividad comercial de forma sencilla.</p>
-                    <a href="/renta/" class="btn">Ingresar</a>
+                    <a href="/renta/" target="_blank" rel="noopener noreferrer" class="btn">INGRESAR</a>
                 </div>
 
-                <!-- Herramienta 3 -->
+                <!-- Herramienta 3 (Privacidad de Datos -> apunta a /cursodatos/ en nueva ventana) -->
                 <div class="card">
                     <h3>Gestión de la Privacidad de Datos</h3>
                     <p>Capacitación y simulador interactivo para la correcta gestión de datos personales en tu negocio.</p>
-                    <a href="/cursodatos/" class="btn">Ingresar</a>
+                    <a href="/cursodatos/" target="_blank" rel="noopener noreferrer" class="btn">INGRESAR</a>
                 </div>
 
-                <!-- Herramienta 4 -->
+                <!-- Herramienta 4 (SFC -> apunta a /sfc/ en nueva ventana) -->
                 <div class="card">
                     <h3>Sistema Financiero Colombiano</h3>
                     <p>Guía y simulador del funcionamiento del ecosistema bancario y financiero nacional.</p>
-                    <a href="/sfc/" class="btn">Ingresar</a>
+                    <a href="/sfc/" target="_blank" rel="noopener noreferrer" class="btn">INGRESAR</a>
                 </div>
 
-                <!-- Herramienta 5 -->
+                <!-- Herramienta 5 (Evaluador Financiero -> apunta a /evaluadorfinanciero/ en nueva ventana) -->
                 <div class="card">
                     <h3>Evaluación Financiera</h3>
                     <p>Simulador técnico para evaluar la viabilidad financiera de tus proyectos o inversiones de emprendimiento.</p>
-                    <a href="/evaluadorfinanciero/" class="btn">Ingresar</a>
+                    <a href="/evaluadorfinanciero/" target="_blank" rel="noopener noreferrer" class="btn">INGRESAR</a>
                 </div>
 
-                <!-- Herramienta 6 -->
+                <!-- Herramienta 6 (Taller Virtual -> apunta a /midinero/ en nueva ventana) -->
                 <div class="card">
                     <h3>Taller Virtual Educación Financiera</h3>
                     <p>Espacio interactivo de aprendizaje diseñado para potenciar tus habilidades en finanzas personales y corporativas.</p>
-                    <a href="/isf/" class="btn">Ingresar</a>
+                    <a href="/midinero/" target="_blank" rel="noopener noreferrer" class="btn">INGRESAR</a>
                 </div>
 
-                <!-- Herramienta 7 (Ecosistema 2010) -->
+                <!-- Herramienta 7 (Ecosistema 2010 -> apunta a /ver2010/ en nueva ventana) -->
                 <div class="card">
                     <h3>Ecosistema (CD2010)</h3>
                     <p>Explora la versión interactiva clásica del ecosistema web de emprendimiento del año 2010.</p>
-                    <a href="/ver2010/" class="btn">Ingresar</a>
+                    <a href="/ver2010/" target="_blank" rel="noopener noreferrer" class="btn">INGRESAR</a>
                 </div>
 
             </div>
         </section>
 
         <footer>
-            <p>&copy; 2026 EnEmprender. Todos los derechos reservados. Alojado de forma segura en GitHub Pages.</p>
+            <p>&copy; 2026 EnEmprender. Todos los derechos reservados. Alojado en GitHub Pages.</p>
         </footer>
 
     </div>

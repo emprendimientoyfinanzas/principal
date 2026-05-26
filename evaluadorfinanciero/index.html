@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financiero Avanzado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CAMBIO: LIBRERÍA SHEETJS PARA EXPORTAR A EXCEL -->
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type="number"] { -moz-appearance: textfield; }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 sm:p-8 flex flex-col items-center min-h-screen">
+
+    <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl w-full max-w-7xl space-y-8">
+        
+        <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800">Simulador Financiero Avanzado</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+            
+            <!-- COLUMNA IZQUIERDA: ENTRADA DE DATOS -->
+            <div class="lg:col-span-1 bg-gray-50 p-6 rounded-lg shadow-inner space-y-6">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-700">Entrada de Datos</h2>
+                
+                <!-- PRODUCTO O SERVICIO -->
+                <div class="space-y-4 border-t pt-6">
+                    <h3 class="text-xl font-medium text-gray-600">Producto o Servicio</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg shadow-sm space-y-2">
+                        <input type="hidden" id="editProductoIndex">
+                        <div class="flex items-center space-x-2"><label for="tipoProducto" class="text-sm font-medium text-gray-600 w-1/3">Tipo</label><select id="tipoProducto" onchange="handleTipoChange()" class="block w-full rounded-md border-gray-300 shadow-sm p-2"><option value="producto">Producto</option><option value="servicio">Servicio</option></select></div>
+                        <div class="flex items-center space-x-2"><label for="nombreProducto" class="text-sm font-medium text-gray-600 w-1/3">Nombre</label><input type="text" id="nombreProducto" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Nombre del producto"></div>
+                        <div class="flex items-center space-x-2"><label for="costoMateriaPrima" class="text-sm font-medium text-gray-600 w-1/3">Costo MP</label><input type="number" id="costoMateriaPrima" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Costo materia prima"></div>
+                        <div class="flex items-center space-x-2"><label for="costoManoObra" class="text-sm font-medium text-gray-600 w-1/3">Costo MOD</label><input type="number" id="costoManoObra" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Mano de obra directa"></div>
+                        <div class="flex items-center space-x-2"><label for="costoIndirecto" class="text-sm font-medium text-gray-600 w-1/3">Costo CIF</label><input type="number" id="costoIndirecto" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Costos indirectos"></div>
+                        <div class="flex items-center space-x-2"><label for="precioVenta" class="text-sm font-medium text-gray-600 w-1/3">Precio Venta</label><input type="number" id="precioVenta" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Precio (sin IVA)"></div>
+                        <div class="flex items-center space-x-2"><label for="unidadesAnual" class="text-sm font-medium text-gray-600 w-1/3">Unidades Anual</label><input type="number" id="unidadesAnual" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Unidades por año"></div>
+                        <div class="flex items-center space-x-2"><label for="ivaProducto" class="text-sm font-medium text-gray-600 w-1/3">IVA (%)</label><input type="number" id="ivaProducto" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Ej: 19"></div>
+                        <button id="btnAdicionarProducto" onclick="adicionarOActualizarProducto()" class="mt-4 w-full bg-green-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-green-600 transition">Adicionar Producto</button>
+                    </div>
+                    <div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead><tr class="bg-gray-200"><th class="p-2 text-left text-xs font-medium text-gray-500 uppercase">Producto</th><th class="p-2 text-left text-xs font-medium text-gray-500 uppercase">Unidades</th><th class="p-2 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th></tr></thead><tbody id="tablaProductos" class="bg-white divide-y divide-gray-200"></tbody></table></div>
+                </div>
+
+                <!-- NÓMINA -->
+                <div class="space-y-4 border-t pt-6">
+                    <h3 class="text-xl font-medium text-gray-600">Nómina</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg shadow-sm space-y-2">
+                        <input type="hidden" id="editNominaIndex">
+                        <div class="flex items-center space-x-2"><label for="nombreCargo" class="text-sm font-medium text-gray-600 w-1/3">Cargo</label><input type="text" id="nombreCargo" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Nombre del cargo"></div>
+                        <div class="flex items-center space-x-2"><label for="salarioAnual" class="text-sm font-medium text-gray-600 w-1/3">Salario Anual</label><input type="number" id="salarioAnual" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Salario anual por cargo"></div>
+                        <button id="btnAdicionarCargo" onclick="adicionarOActualizarCargo()" class="mt-4 w-full bg-green-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-green-600 transition">Adicionar Cargo</button>
+                    </div>
+                    <div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead><tr class="bg-gray-200"><th class="p-2 text-left text-xs font-medium text-gray-500 uppercase">Cargo</th><th class="p-2 text-left text-xs font-medium text-gray-500 uppercase">Salario Anual</th><th class="p-2 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th></tr></thead><tbody id="tablaNomina" class="bg-white divide-y divide-gray-200"></tbody></table></div>
+                </div>
+
+                <!-- FINANCIACIÓN Y PARÁMETROS -->
+                <div class="space-y-4 border-t pt-6">
+                    <h3 class="text-xl font-medium text-gray-600">Financiación y Parámetros</h3>
+                    <div class="space-y-2">
+                         <div class="flex items-center space-x-2"><label for="capitalPropio" class="text-sm font-medium text-gray-600 w-1/2">Capital propio (%)</label><input type="number" id="capitalPropio" class="block w-full rounded-md border-gray-300 shadow-sm p-2" value="100"></div>
+                        <div class="flex items-center space-x-2"><p class="text-sm font-medium text-gray-600 w-1/2">Capital financiado (%)</p><p id="capitalFinanciado" class="mt-1 block w-full rounded-md bg-gray-100 p-2 text-gray-700">0%</p></div>
+                        <div class="flex items-center space-x-2"><label for="tasaInteres" class="text-sm font-medium text-gray-600 w-1/2">Tasa de interés (%)</label><input type="number" id="tasaInteres" class="block w-full rounded-md border-gray-300 shadow-sm p-2"></div>
+                        <div class="flex items-center space-x-2"><label for="plazo" class="text-sm font-medium text-gray-600 w-1/2">Plazo (años)</label><input type="number" id="plazo" class="block w-full rounded-md border-gray-300 shadow-sm p-2"></div>
+                        <div class="flex items-center space-x-2"><label for="tasaOportunidad" class="text-sm font-medium text-gray-600 w-1/2">Tasa de oportunidad (%)</label><input type="number" id="tasaOportunidad" class="block w-full rounded-md border-gray-300 shadow-sm p-2" value="15"></div>
+                        <div class="flex items-center space-x-2"><label for="inflacionAnual" class="text-sm font-medium text-gray-600 w-1/2">Inflación anual (%)</label><input type="number" id="inflacionAnual" class="block w-full rounded-md border-gray-300 shadow-sm p-2" value="5"></div>
+                    </div>
+                </div>
+
+                <!-- INVERSIÓN INICIAL Y GASTOS -->
+                <div class="space-y-4 border-t pt-6">
+                    <h3 class="text-xl font-medium text-gray-600">Inversión Inicial y Gastos</h3>
+                    <div class="border-t pt-4 space-y-2">
+                        <h4 class="font-semibold text-gray-700">Activos Fijos (Depreciables)</h4>
+                        <div class="grid grid-cols-2 gap-x-2 items-center"><label class="text-sm font-medium text-gray-600">Construcciones</label><label class="text-sm font-medium text-gray-600">Vida Útil (años)</label><input type="number" id="construcciones" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Valor"><input type="number" id="vidaUtilConstrucciones" class="block w-full rounded-md border-gray-300 shadow-sm p-2" value="20"></div>
+                        <div class="grid grid-cols-2 gap-x-2 items-center"><label class="text-sm font-medium text-gray-600">Maquinaria</label><label class="text-sm font-medium text-gray-600">Vida Útil (años)</label><input type="number" id="maquinaria" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Valor"><input type="number" id="vidaUtilMaquinaria" class="block w-full rounded-md border-gray-300 shadow-sm p-2" value="10"></div>
+                        <div class="grid grid-cols-2 gap-x-2 items-center"><label class="text-sm font-medium text-gray-600">Equipamiento</label><label class="text-sm font-medium text-gray-600">Vida Útil (años)</label><input type="number" id="equipamiento" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Valor"><input type="number" id="vidaUtilEquipamiento" class="block w-full rounded-md border-gray-300 shadow-sm p-2" value="5"></div>
+                    </div>
+                    <div class="border-t pt-4 space-y-2">
+                        <h4 class="font-semibold text-gray-700">Activos Intangibles (Amortizables)</h4>
+                        <div class="grid grid-cols-2 gap-x-2 items-center"><label class="text-sm font-medium text-gray-600">Gastos Constitución</label><label class="text-sm font-medium text-gray-600">Años Amort.</label><input type="number" id="gastosConstitucion" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Valor"><input type="number" id="aniosAmortizacionGastos" class="block w-full rounded-md border-gray-300 shadow-sm p-2" value="5"></div>
+                        <div class="grid grid-cols-2 gap-x-2 items-center"><label class="text-sm font-medium text-gray-600">Registro Marcas</label><label class="text-sm font-medium text-gray-600">Años Amort.</label><input type="number" id="registroMarcas" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Valor"><input type="number" id="aniosAmortizacionMarcas" class="block w-full rounded-md border-gray-300 shadow-sm p-2" value="10"></div>
+                    </div>
+                     <div class="border-t pt-4 space-y-2">
+                        <h4 class="font-semibold text-gray-700">Capital de Trabajo y Gastos Anuales</h4>
+                        <div class="flex items-center space-x-2"><label class="text-sm font-medium text-gray-600 w-1/2">Inventario (1er Trim)</label><p id="inventarioCalculado" class="text-sm text-gray-500 w-full rounded-md bg-gray-100 p-2">Calculado</p></div>
+                        <div class="flex items-center space-x-2"><label for="arrendamientos" class="text-sm font-medium text-gray-600 w-1/2">Arrendamientos</label><input type="number" id="arrendamientos" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Costo anual"></div>
+                        <div class="flex items-center space-x-2"><label for="servicios" class="text-sm font-medium text-gray-600 w-1/2">Servicios públicos</label><input type="number" id="servicios" class="block w-full rounded-md border-gray-300 shadow-sm p-2" placeholder="Costo anual"></div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-100 p-4 rounded-lg shadow-sm space-y-4">
+                    <h3 class="text-xl font-semibold text-blue-800 mb-2">Resumen Financiero Inicial</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <p>Inversión Inicial: <span id="totalInversionInicial" class="font-bold text-blue-900">$0</span></p>
+                        <p>Capital Propio: <span id="capitalPropioResult" class="font-bold text-blue-900">$0</span></p>
+                        <p>Capital Financiado: <span id="totalFinanciadoResult" class="font-bold text-blue-900">$0</span></p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 border-t pt-6">
+                    <button onclick="calcularTodo()" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition">Calcular Proyecciones</button>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: RESULTADOS -->
+            <div class="lg:col-span-2 bg-gray-50 p-6 rounded-lg shadow-inner space-y-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-semibold text-gray-700">Resultados y Proyecciones</h2>
+                    <!-- CAMBIO: BOTÓN DE EXPORTAR -->
+                    <button onclick="exportarAExcel()" class="bg-teal-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-teal-700 transition flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v4a1 1 0 102 0V7zM10 15a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" /><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" /></svg>
+                        <span>Exportar a Excel</span>
+                    </button>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow-sm"><h3 class="text-xl font-semibold text-gray-700 mb-2">Proyección del Estado de Resultados</h3><div class="overflow-x-auto"><table id="tablaEstadoResultados" class="min-w-full divide-y divide-gray-200"></table></div></div>
+                <div class="bg-white p-4 rounded-lg shadow-sm"><h3 class="text-xl font-semibold text-gray-700 mb-2">Proyección del Flujo de Fondos</h3><div class="overflow-x-auto"><table id="tablaFlujoFondos" class="min-w-full divide-y divide-gray-200"></table></div></div>
+                <div class="bg-white p-4 rounded-lg shadow-sm"><h3 class="text-xl font-semibold text-gray-700 mb-2">Proyección del Balance General</h3><div class="overflow-x-auto"><table id="tablaBalanceGeneral" class="min-w-full divide-y divide-gray-200"></table></div></div>
+                <div class="bg-yellow-100 p-4 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-semibold text-yellow-800 mb-2">Indicadores del Proyecto</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <p>TIR (Tasa Interna de Retorno): <span id="tir" class="font-bold text-yellow-900">0%</span></p>
+                        <p>VPN (Valor Presente Neto): <span id="vpn" class="font-bold text-yellow-900">$0</span></p>
+                        <p>Periodo de Recuperación: <span id="periodoRecuperacion" class="font-bold text-yellow-900">0 años</span></p>
+                        <p>Punto de Equilibrio (Unidades): <span id="puntoEquilibrioUnidades" class="font-bold text-yellow-900">0</span></p>
+                        <p>Punto de Equilibrio (Ventas): <span id="puntoEquilibrioVentas" class="font-bold text-yellow-900">$0</span></p>
+                    </div>
+                </div>
+                <div id="tablaAmortizacionContainer" class="mt-6 hidden bg-white p-4 rounded-lg shadow-sm"><h3 class="font-semibold text-gray-700 text-xl mb-2">Tabla de Amortización del Crédito</h3><div class="overflow-x-auto mt-2"><table id="tablaAmortizacion" class="min-w-full divide-y divide-gray-200"></table></div></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let nomina = [], productos = [], editNominaIndex = null, editProductoIndex = null;
+        const DECLARACION_RENTA = 0.35, PROJECTION_YEARS = 5;
+        const formatoMoneda = (v) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(v);
+        const esNumeroValido = (v) => !isNaN(v) && v >= 0;
+        const iconEditar = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg>`;
+        const iconEliminar = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" /></svg>`;
+
+        const handleTipoChange = () => {
+            const tipo = document.getElementById('tipoProducto').value;
+            const costoManoObraInput = document.getElementById('costoManoObra');
+            const costoIndirectoInput = document.getElementById('costoIndirecto');
+            if (tipo === 'servicio') {
+                costoManoObraInput.disabled = true; costoManoObraInput.value = 0;
+                costoIndirectoInput.disabled = true; costoIndirectoInput.value = 0;
+            } else {
+                costoManoObraInput.disabled = false; costoManoObraInput.value = '';
+                costoIndirectoInput.disabled = false; costoIndirectoInput.value = '';
+            }
+        };
+        const adicionarOActualizarCargo = () => {
+            const nombreCargo = document.getElementById('nombreCargo').value;
+            const salarioAnual = parseFloat(document.getElementById('salarioAnual').value);
+            if (nombreCargo && esNumeroValido(salarioAnual)) {
+                if (editNominaIndex !== null) {
+                    nomina[editNominaIndex] = { nombre: nombreCargo, salarioAnual };
+                    editNominaIndex = null;
+                    document.getElementById('btnAdicionarCargo').textContent = 'Adicionar Cargo';
+                } else {
+                    nomina.push({ nombre: nombreCargo, salarioAnual });
+                }
+                document.getElementById('nombreCargo').value = '';
+                document.getElementById('salarioAnual').value = '';
+                actualizarTablaNomina();
+                calcularTodo();
+            } else { alert('Por favor, ingrese datos válidos para el cargo.'); }
+        };
+        const editarCargo = (index) => {
+            const cargo = nomina[index];
+            document.getElementById('nombreCargo').value = cargo.nombre;
+            document.getElementById('salarioAnual').value = cargo.salarioAnual;
+            editNominaIndex = index;
+            document.getElementById('btnAdicionarCargo').textContent = 'Actualizar Cargo';
+        };
+        const eliminarCargo = (index) => {
+            nomina.splice(index, 1);
+            actualizarTablaNomina();
+            calcularTodo();
+        };
+        const actualizarTablaNomina = () => {
+            const tbody = document.getElementById('tablaNomina');
+            tbody.innerHTML = '';
+            nomina.forEach((cargo, index) => {
+                tbody.innerHTML += `<tr class="hover:bg-gray-50"><td class="p-2 text-sm">${cargo.nombre}</td><td class="p-2 text-sm">${formatoMoneda(cargo.salarioAnual)}</td><td class="p-2 text-sm flex items-center space-x-2"><button onclick="editarCargo(${index})" class="text-indigo-600 hover:text-indigo-900">${iconEditar}</button><button onclick="eliminarCargo(${index})" class="text-red-600 hover:text-red-900">${iconEliminar}</button></td></tr>`;
+            });
+        };
+        const adicionarOActualizarProducto = () => {
+            const productoData = {
+                tipo: document.getElementById('tipoProducto').value,
+                nombre: document.getElementById('nombreProducto').value,
+                costoMP: parseFloat(document.getElementById('costoMateriaPrima').value) || 0,
+                costoMO: parseFloat(document.getElementById('costoManoObra').value) || 0,
+                costoIndirecto: parseFloat(document.getElementById('costoIndirecto').value) || 0,
+                precioVenta: parseFloat(document.getElementById('precioVenta').value),
+                unidadesAnual: parseFloat(document.getElementById('unidadesAnual').value),
+                iva: (parseFloat(document.getElementById('ivaProducto').value) || 0) / 100
+            };
+            if (productoData.nombre && esNumeroValido(productoData.precioVenta) && esNumeroValido(productoData.unidadesAnual)) {
+                if (editProductoIndex !== null) {
+                    productos[editProductoIndex] = productoData;
+                    editProductoIndex = null;
+                    document.getElementById('btnAdicionarProducto').textContent = 'Adicionar Producto';
+                } else { productos.push(productoData); }
+                ['nombreProducto', 'costoMateriaPrima', 'costoManoObra', 'costoIndirecto', 'precioVenta', 'unidadesAnual', 'ivaProducto'].forEach(id => document.getElementById(id).value = '');
+                actualizarTablaProductos();
+                calcularTodo();
+            } else { alert('Por favor, ingrese datos válidos (Nombre, Precio y Unidades son obligatorios).'); }
+        };
+        const editarProducto = (index) => {
+            const p = productos[index];
+            document.getElementById('tipoProducto').value = p.tipo;
+            handleTipoChange();
+            document.getElementById('nombreProducto').value = p.nombre;
+            document.getElementById('costoMateriaPrima').value = p.costoMP;
+            document.getElementById('costoManoObra').value = p.costoMO;
+            document.getElementById('costoIndirecto').value = p.costoIndirecto;
+            document.getElementById('precioVenta').value = p.precioVenta;
+            document.getElementById('unidadesAnual').value = p.unidadesAnual;
+            document.getElementById('ivaProducto').value = p.iva * 100;
+            editProductoIndex = index;
+            document.getElementById('btnAdicionarProducto').textContent = 'Actualizar Producto';
+        };
+        const eliminarProducto = (index) => {
+            productos.splice(index, 1);
+            actualizarTablaProductos();
+            calcularTodo();
+        };
+        const actualizarTablaProductos = () => {
+            const tbody = document.getElementById('tablaProductos');
+            tbody.innerHTML = '';
+            productos.forEach((p, index) => {
+                tbody.innerHTML += `<tr class="hover:bg-gray-50"><td class="p-2 text-sm">${p.nombre}</td><td class="p-2 text-sm">${p.unidadesAnual.toLocaleString('es-CO')}</td><td class="p-2 text-sm flex items-center space-x-2"><button onclick="editarProducto(${index})" class="text-indigo-600 hover:text-indigo-900">${iconEditar}</button><button onclick="eliminarProducto(${index})" class="text-red-600 hover:text-red-900">${iconEliminar}</button></td></tr>`;
+            });
+        };
+
+        const generarTablaAmortizacion = (capital, tasaInteres, plazo) => {
+            const tablaC = document.getElementById('tablaAmortizacionContainer');
+            const tablaA = document.getElementById('tablaAmortizacion');
+            const anualIntereses = Array(PROJECTION_YEARS).fill(0), anualPrincipal = Array(PROJECTION_YEARS).fill(0);
+            if (!tablaC || !tablaA || capital <= 0 || tasaInteres <= 0 || plazo <= 0) {
+                tablaC?.classList.add('hidden');
+                return { anualIntereses, anualPrincipal };
+            }
+            tablaC.classList.remove('hidden');
+            tablaA.innerHTML = '';
+            const tasaMensual = tasaInteres / 100 / 12, nCuotas = plazo * 12;
+            const cuota = capital * (tasaMensual * Math.pow(1 + tasaMensual, nCuotas)) / (Math.pow(1 + tasaMensual, nCuotas) - 1);
+            let saldo = capital;
+            const header = `<thead class="bg-gray-200"><tr><th class="p-2 text-left text-xs">Mes</th><th class="p-2 text-left text-xs">Cuota</th><th class="p-2 text-left text-xs">Intereses</th><th class="p-2 text-left text-xs">Abono Capital</th><th class="p-2 text-left text-xs">Saldo</th></tr></thead>`;
+            const tbody = document.createElement('tbody');
+            tbody.className = 'bg-white divide-y divide-gray-200';
+            for (let i = 1; i <= nCuotas; i++) {
+                const intereses = saldo * tasaMensual, abonoCapital = cuota - intereses;
+                saldo -= abonoCapital;
+                const anio = Math.floor((i - 1) / 12);
+                if (anio < PROJECTION_YEARS) { anualIntereses[anio] += intereses; anualPrincipal[anio] += abonoCapital; }
+                tbody.innerHTML += `<tr><td class="p-2 text-sm">${i}</td><td class="p-2 text-sm">${formatoMoneda(cuota)}</td><td class="p-2 text-sm">${formatoMoneda(intereses)}</td><td class="p-2 text-sm">${formatoMoneda(abonoCapital)}</td><td class="p-2 text-sm">${formatoMoneda(Math.max(0, saldo))}</td></tr>`;
+            }
+            tablaA.innerHTML = header;
+            tablaA.appendChild(tbody);
+            return { anualIntereses, anualPrincipal };
+        };
+
+        const obtenerDatosEntrada = () => {
+            const ids = ["construcciones", "vidaUtilConstrucciones", "maquinaria", "vidaUtilMaquinaria", "equipamiento", "vidaUtilEquipamiento", "gastosConstitucion", "aniosAmortizacionGastos", "registroMarcas", "aniosAmortizacionMarcas", "capitalPropio", "tasaInteres", "plazo", "tasaOportunidad", "inflacionAnual", "arrendamientos", "servicios"];
+            return ids.reduce((acc, id) => ({ ...acc, [id]: parseFloat(document.getElementById(id).value) || 0 }), {});
+        };
+
+        function calcularTodo() {
+            try {
+                const datos = obtenerDatosEntrada();
+                const inflacionFactor = 1 + datos.inflacionAnual / 100;
+                const totalNominaAnual = nomina.reduce((s, c) => s + c.salarioAnual, 0);
+                const totalCostoMPAnual = productos.reduce((s, p) => s + (p.costoMP * p.unidadesAnual), 0);
+                const inventarioInicial = totalCostoMPAnual / 4;
+                document.getElementById('inventarioCalculado').textContent = formatoMoneda(inventarioInicial);
+                const otrosGastosOp = datos.arrendamientos + datos.servicios;
+                const totalActivosFijos = datos.construcciones + datos.maquinaria + datos.equipamiento;
+                const totalActivosIntangibles = datos.gastosConstitucion + datos.registroMarcas;
+                const colchonGastos = (totalNominaAnual + otrosGastosOp) / 4;
+                const totalInversionInicial = totalActivosFijos + totalActivosIntangibles + inventarioInicial + colchonGastos;
+                const capitalFinanciadoPorc = 100 - datos.capitalPropio;
+                const capitalPropioValor = totalInversionInicial * (datos.capitalPropio / 100);
+                const capitalFinanciadoValor = totalInversionInicial - capitalPropioValor;
+                document.getElementById('totalInversionInicial').textContent = formatoMoneda(totalInversionInicial);
+                document.getElementById('capitalFinanciado').textContent = `${capitalFinanciadoPorc.toFixed(1)}%`;
+                document.getElementById('capitalPropioResult').textContent = formatoMoneda(capitalPropioValor);
+                document.getElementById('totalFinanciadoResult').textContent = formatoMoneda(capitalFinanciadoValor);
+                const { anualIntereses, anualPrincipal } = generarTablaAmortizacion(capitalFinanciadoValor, datos.tasaInteres, datos.plazo);
+                const depAnual = (datos.vidaUtilConstrucciones ? datos.construcciones / datos.vidaUtilConstrucciones : 0) + (datos.vidaUtilMaquinaria ? datos.maquinaria / datos.vidaUtilMaquinaria : 0) + (datos.vidaUtilEquipamiento ? datos.equipamiento / datos.vidaUtilEquipamiento : 0);
+                const amortAnual = (datos.aniosAmortizacionGastos ? datos.gastosConstitucion / datos.aniosAmortizacionGastos : 0) + (datos.aniosAmortizacionMarcas ? datos.registroMarcas / datos.aniosAmortizacionMarcas : 0);
+                const totalDepAmortAnual = depAnual + amortAnual;
+                const proyecciones = [], flujosCaja = [-totalInversionInicial], variacionesEfectivo = [];
+                let ingresos = productos.reduce((s, p) => s + p.precioVenta * p.unidadesAnual, 0);
+                let costosVar = productos.reduce((s, p) => s + (p.costoMP + p.costoMO + p.costoIndirecto) * p.unidadesAnual, 0);
+                let gastosOp = totalNominaAnual + otrosGastosOp;
+                for (let i = 0; i < PROJECTION_YEARS; i++) {
+                    const uai = ingresos - costosVar - gastosOp - totalDepAmortAnual - anualIntereses[i];
+                    const impuestos = uai > 0 ? uai * DECLARACION_RENTA : 0;
+                    const utilidadNeta = uai - impuestos;
+                    const ivaPagado = productos.reduce((s, p) => s + (p.precioVenta * p.unidadesAnual * Math.pow(inflacionFactor, i) * p.iva), 0);
+                    const flujoCajaNeto = utilidadNeta + totalDepAmortAnual - anualPrincipal[i] - ivaPagado;
+                    flujosCaja.push(flujoCajaNeto);
+                    const variacionEfectivoBS = utilidadNeta + totalDepAmortAnual - anualPrincipal[i];
+                    variacionesEfectivo.push(variacionEfectivoBS);
+                    proyecciones.push({ ingresos, costosVar, gastosOp, depAmort: totalDepAmortAnual, intereses: anualIntereses[i], uai, impuestos, utilidadNeta, ivaPagado });
+                    ingresos *= inflacionFactor;
+                    costosVar *= inflacionFactor;
+                    gastosOp *= inflacionFactor;
+                }
+                renderizarTablas(proyecciones, flujosCaja, anualPrincipal);
+                renderizarBalanceGeneral(proyecciones, variacionesEfectivo, totalInversionInicial, totalActivosFijos, totalActivosIntangibles, capitalPropioValor, capitalFinanciadoValor, depAnual, amortAnual, anualPrincipal);
+                renderizarIndicadores(flujosCaja, proyecciones, datos.tasaOportunidad);
+            } catch (error) { console.error("Error en cálculo principal:", error); }
+        }
+
+        function renderizarTablas(proyecciones, flujosCaja, anualPrincipal) {
+            let headR = `<thead><tr><th class="p-2 text-left text-xs font-medium">Concepto</th>${proyecciones.map((_, i) => `<th class="p-2 text-left text-xs font-medium">Año ${i + 1}</th>`).join('')}</tr></thead>`;
+            let bodyR = `<tbody class="bg-white divide-y divide-gray-200">
+                <tr><td class="p-2 text-sm">Ingresos</td>${proyecciones.map(p => `<td class="p-2 text-sm">${formatoMoneda(p.ingresos)}</td>`).join('')}</tr>
+                <tr><td class="p-2 text-sm">(-) Costos Variables</td>${proyecciones.map(p => `<td class="p-2 text-sm">${formatoMoneda(p.costosVar)}</td>`).join('')}</tr>
+                <tr><td class="p-2 text-sm">(-) Gastos Operativos</td>${proyecciones.map(p => `<td class="p-2 text-sm">${formatoMoneda(p.gastosOp)}</td>`).join('')}</tr>
+                <tr><td class="p-2 text-sm">(-) Depreciación/Amortización</td>${proyecciones.map(p => `<td class="p-2 text-sm">${formatoMoneda(p.depAmort)}</td>`).join('')}</tr>
+                <tr><td class="p-2 text-sm">(-) Intereses</td>${proyecciones.map(p => `<td class="p-2 text-sm">${formatoMoneda(p.intereses)}</td>`).join('')}</tr>
+                <tr class="bg-gray-50 font-bold"><td class="p-2 text-sm">(=) Utilidad Antes Imp.</td>${proyecciones.map(p => `<td class="p-2 text-sm">${formatoMoneda(p.uai)}</td>`).join('')}</tr>
+                <tr><td class="p-2 text-sm">(-) Impuestos</td>${proyecciones.map(p => `<td class="p-2 text-sm">${formatoMoneda(p.impuestos)}</td>`).join('')}</tr>
+                <tr class="bg-blue-50 font-bold text-blue-800"><td class="p-2 text-sm">(=) Utilidad Neta</td>${proyecciones.map(p => `<td class="p-2 text-sm">${formatoMoneda(p.utilidadNeta)}</td>`).join('')}</tr>
+            </tbody>`;
+            document.getElementById('tablaEstadoResultados').innerHTML = headR + bodyR;
+            
+            let headF = `<thead><tr><th class="p-2 text-left text-xs font-medium">Concepto</th><th class="p-2 text-left text-xs font-medium">Año 0</th>${proyecciones.map((_, i) => `<th class="p-2 text-left text-xs font-medium">Año ${i + 1}</th>`).join('')}</tr></thead>`;
+            let bodyF = `<tbody class="bg-white divide-y divide-gray-200">
+                <tr><td class="p-2 text-sm">Utilidad Neta</td><td></td>${proyecciones.map(p => `<td class="p-2 text-sm">${formatoMoneda(p.utilidadNeta)}</td>`).join('')}</tr>
+                <tr><td class="p-2 text-sm">(+) Depreciación/Amortización</td><td></td>${proyecciones.map(p => `<td class="p-2 text-sm">${formatoMoneda(p.depAmort)}</td>`).join('')}</tr>
+                <tr><td class="p-2 text-sm">(-) Pago Principal Deuda</td><td></td>${anualPrincipal.map(p => `<td class="p-2 text-sm">${formatoMoneda(p > 0 ? -p : 0)}</td>`).join('')}</tr>
+                <tr><td class="p-2 text-sm text-red-600">(-) IVA Pagado</td><td></td>${proyecciones.map(p => `<td class="p-2 text-sm text-red-600">${formatoMoneda(-p.ivaPagado)}</td>`).join('')}</tr>
+                <tr class="bg-yellow-50 font-bold text-yellow-800"><td class="p-2 text-sm">(=) Flujo de Caja Neto</td><td class="p-2 text-sm">${formatoMoneda(flujosCaja[0])}</td>${flujosCaja.slice(1).map(f => `<td class="p-2 text-sm">${formatoMoneda(f)}</td>`).join('')}</tr>
+            </tbody>`;
+            document.getElementById('tablaFlujoFondos').innerHTML = headF + bodyF;
+        }
+
+        function renderizarBalanceGeneral(proyecciones, variacionesEfectivo, ...args) {
+            const [totalInv, actFijos, actIntangibles, capPropio, capFinanciado, depAnual, amortAnual, princAnual] = args;
+            let headB = `<thead><tr><th class="p-2 text-left text-xs font-medium">Concepto</th>${proyecciones.map((_, i) => `<th class="p-2 text-left text-xs font-medium">Año ${i + 1}</th>`).join('')}</tr></thead>`;
+            let efectivo = totalInv - actFijos - actIntangibles;
+            let actFijosNetos = actFijos, actIntangiblesNetos = actIntangibles;
+            let deuda = capFinanciado, patrimonio = capPropio;
+            const balances = [];
+            for (let i = 0; i < PROJECTION_YEARS; i++) {
+                efectivo += variacionesEfectivo[i];
+                actFijosNetos -= depAnual;
+                actIntangiblesNetos -= amortAnual;
+                deuda -= princAnual[i];
+                patrimonio += proyecciones[i].utilidadNeta;
+                balances.push({
+                    efectivo, actFijosNetos, actIntangiblesNetos, deuda, patrimonio,
+                    totalActivos: Math.max(0, efectivo) + Math.max(0, actFijosNetos) + Math.max(0, actIntangiblesNetos),
+                    totalPasPat: Math.max(0, deuda) + patrimonio
+                });
+            }
+            let bodyB = `<tbody class="bg-white divide-y divide-gray-200">
+                <tr class="bg-gray-100 font-bold"><td colspan="${PROJECTION_YEARS + 1}" class="p-2 text-sm">ACTIVOS</td></tr>
+                <tr><td class="p-2 text-sm pl-6">Efectivo</td>${balances.map(b => `<td class="p-2 text-sm">${formatoMoneda(b.efectivo)}</td>`).join('')}</tr>
+                <tr><td class="p-2 text-sm pl-6">Activos Fijos Netos</td>${balances.map(b => `<td class="p-2 text-sm">${formatoMoneda(b.actFijosNetos)}</td>`).join('')}</tr>
+                <tr><td class="p-2 text-sm pl-6">Activos Intangibles Netos</td>${balances.map(b => `<td class="p-2 text-sm">${formatoMoneda(b.actIntangiblesNetos)}</td>`).join('')}</tr>
+                <tr class="bg-gray-50 font-bold"><td class="p-2 text-sm">Total Activos</td>${balances.map(b => `<td class="p-2 text-sm">${formatoMoneda(b.totalActivos)}</td>`).join('')}</tr>
+                <tr class="bg-gray-100 font-bold"><td colspan="${PROJECTION_YEARS + 1}" class="p-2 text-sm">PASIVO Y PATRIMONIO</td></tr>
+                <tr><td class="p-2 text-sm pl-6">Deuda</td>${balances.map(b => `<td class="p-2 text-sm">${formatoMoneda(b.deuda)}</td>`).join('')}</tr>
+                <tr><td class="p-2 text-sm pl-6">Patrimonio</td>${balances.map(b => `<td class="p-2 text-sm">${formatoMoneda(b.patrimonio)}</td>`).join('')}</tr>
+                <tr class="bg-gray-50 font-bold"><td class="p-2 text-sm">Total Pasivo y Patrimonio</td>${balances.map(b => `<td class="p-2 text-sm">${formatoMoneda(b.totalPasPat)}</td>`).join('')}</tr>
+                <tr class="bg-red-100 font-bold text-red-700"><td class="p-2 text-sm">Verificación (Cuadre)</td>${balances.map(b => `<td class="p-2 text-sm">${formatoMoneda(b.totalActivos - b.totalPasPat)}</td>`).join('')}</tr>
+            </tbody>`;
+            document.getElementById('tablaBalanceGeneral').innerHTML = headB + bodyB;
+        }
+
+        function renderizarIndicadores(flujosCaja, proyecciones, tasaOportunidad) {
+            document.getElementById('tir').textContent = `${(calculateTIR(flujosCaja) * 100).toFixed(2)}%`;
+            document.getElementById('vpn').textContent = formatoMoneda(calculateNPV(tasaOportunidad / 100, flujosCaja));
+            const payback = calculatePaybackPeriod(flujosCaja);
+            document.getElementById('periodoRecuperacion').textContent = payback === Infinity ? "No se recupera" : `${payback.toFixed(2)} años`;
+            const totalUnidades = productos.reduce((sum, p) => sum + p.unidadesAnual, 0);
+            if (totalUnidades > 0 && proyecciones[0].ingresos > 0) {
+                const cf = proyecciones[0].gastosOp + proyecciones[0].depAmort + proyecciones[0].intereses;
+                const cvu = proyecciones[0].costosVar / totalUnidades;
+                const pvu = proyecciones[0].ingresos / totalUnidades;
+                const mcu = pvu - cvu;
+                if (mcu > 0) {
+                    const peUnidades = cf / mcu;
+                    document.getElementById('puntoEquilibrioUnidades').textContent = `${Math.ceil(peUnidades).toLocaleString('es-CO')}`;
+                    document.getElementById('puntoEquilibrioVentas').textContent = formatoMoneda(peUnidades * pvu);
+                } else { document.getElementById('puntoEquilibrioUnidades').textContent = "N/A"; document.getElementById('puntoEquilibrioVentas').textContent = "N/A"; }
+            } else { document.getElementById('puntoEquilibrioUnidades').textContent = "0"; document.getElementById('puntoEquilibrioVentas').textContent = "$0"; }
+        }
+
+        const calculateTIR = (flows) => {
+            if (!flows.some(f => f < 0) || !flows.some(f => f > 0)) return 0;
+            let rate = 0.1;
+            for (let i = 0; i < 100; i++) {
+                let npv = 0, deriv = 0;
+                flows.forEach((flow, j) => { npv += flow / Math.pow(1 + rate, j); deriv += -j * flow / Math.pow(1 + rate, j + 1); });
+                if (Math.abs(npv) < 1e-6) return rate;
+                if (deriv === 0) break;
+                rate -= npv / deriv;
+            }
+            return rate;
+        };
+        const calculateNPV = (rate, flows) => flows.reduce((acc, flow, i) => acc + flow / Math.pow(1 + rate, i), 0);
+        const calculatePaybackPeriod = (flows) => {
+            if (!flows || flows.length === 0 || flows[0] >= 0) return 0;
+            let cumulative = flows[0];
+            for (let i = 1; i < flows.length; i++) {
+                let prevCumulative = cumulative;
+                cumulative += flows[i];
+                if (cumulative >= 0) return (i - 1) + Math.abs(prevCumulative) / flows[i];
+            }
+            return Infinity;
+        };
+
+        function exportarAExcel() {
+            try {
+                const wb = XLSX.utils.book_new();
+                
+                const wsResultados = XLSX.utils.table_to_sheet(document.getElementById('tablaEstadoResultados'));
+                XLSX.utils.book_append_sheet(wb, wsResultados, "Estado de Resultados");
+
+                const wsFlujo = XLSX.utils.table_to_sheet(document.getElementById('tablaFlujoFondos'));
+                XLSX.utils.book_append_sheet(wb, wsFlujo, "Flujo de Fondos");
+
+                const wsBalance = XLSX.utils.table_to_sheet(document.getElementById('tablaBalanceGeneral'));
+                XLSX.utils.book_append_sheet(wb, wsBalance, "Balance General");
+
+                const tablaAmortizacionEl = document.getElementById('tablaAmortizacionContainer');
+                if (!tablaAmortizacionEl.classList.contains('hidden')) {
+                    const wsAmortizacion = XLSX.utils.table_to_sheet(document.getElementById('tablaAmortizacion'));
+                    XLSX.utils.book_append_sheet(wb, wsAmortizacion, "Tabla de Amortización");
+                }
+
+                XLSX.writeFile(wb, "Simulacion_Financiera.xlsx");
+            } catch (error) {
+                console.error("Error al exportar a Excel:", error);
+                alert("Hubo un error al intentar exportar el archivo. Revise la consola para más detalles.");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', calcularTodo));
+            handleTipoChange();
+            calcularTodo();
+        });
+    </script>
+</body>
+</html>

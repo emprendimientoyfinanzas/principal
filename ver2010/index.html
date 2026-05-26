@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revista Interactiva EnEmprender - Liderazgo Emprendedor</title>
+    <!-- Tailwind CSS para el diseño responsivo moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para emular el diseño clásico "Web 2.0" de 2010 de los botones */
+        .btn-2010 {
+            background: linear-gradient(to bottom, #2d2d2d 0%, #111111 100%);
+            color: #ffffff;
+            border: 1px solid #4a4a4a;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.2);
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.2s ease;
+        }
+        .btn-2010:hover {
+            background: linear-gradient(to bottom, #4a4a4a 0%, #222222 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.3);
+        }
+        .btn-2010:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        /* Estilo vintage de Moodle / Plataformas de aprendizaje de 2010 */
+        .moodle-header {
+            background-color: #f7a22a;
+            background-image: linear-gradient(to bottom, #f9b855, #f7a22a);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans text-gray-800 antialiased">
+
+    <!-- CONTENEDOR PRINCIPAL DE LA REVISTA -->
+    <div class="max-w-4xl mx-auto my-6 bg-white shadow-2xl rounded-xl overflow-hidden border border-gray-200">
+        
+        <!-- CABECERA COMÚN (Logos y Banner) -->
+        <header class="p-4 bg-white border-b border-gray-100">
+            <div class="flex justify-between items-center px-4">
+                <!-- Logo EnEmprender -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-10 h-10 text-orange-500 fill-current" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 2a10 10 0 0 1 10 10H12V2z" fill="currentColor" opacity="0.3"/>
+                    </svg>
+                    <div>
+                        <span class="font-extrabold text-lg text-gray-800 tracking-tight leading-none block">EnEmprender</span>
+                        <span class="text-xs text-orange-600 font-semibold tracking-wider">CORPORACIÓN</span>
+                    </div>
+                </div>
+
+                <!-- Centro de la Cabecera -->
+                <div class="text-center">
+                    <a href="#" onclick="showView('view-home')" class="hover:underline font-bold text-blue-600 text-sm">
+                        Revista Interactiva EnEmprender.Com
+                    </a>
+                    <p class="text-[10px] text-gray-500">Versión 2.1 - 2010 ©Derechos Reservados</p>
+                </div>
+
+                <!-- Logo eMujer -->
+                <div class="flex items-center space-x-2">
+                    <div class="relative w-8 h-8">
+                        <div class="absolute inset-0 bg-teal-400 rounded-full opacity-70 transform translate-x-1"></div>
+                        <div class="absolute inset-0 bg-yellow-400 rounded-full opacity-70 transform -translate-x-1"></div>
+                        <div class="absolute inset-0 bg-pink-400 rounded-full opacity-70 transform translate-y-1"></div>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-sm text-gray-700 leading-none block">eMujer</span>
+                        <span class="text-[9px] text-teal-600 font-semibold block leading-none">CORPORACIÓN</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Título del Banner -->
+            <div class="mt-4 text-center">
+                <h1 class="text-3xl md:text-4xl font-black text-orange-700 tracking-wider">LIDERAZGO EMPRENDEDOR</h1>
+            </div>
+
+            <!-- Cadena de Siluetas de Personas (SVG interactivo que recrea el banner de siluetas) -->
+            <div class="mt-3 relative w-full h-10 overflow-hidden bg-gradient-to-r from-blue-50 to-pink-50 rounded-md border border-gray-100 flex items-center">
+                <svg class="w-full h-8" viewBox="0 0 800 50" preserveAspectRatio="none">
+                    <defs>
+                        <g id="silueta">
+                            <circle cx="20" cy="12" r="6"/>
+                            <path d="M20,18 C20,18 10,21 10,28 L10,45 M20,18 C20,18 30,21 30,28 L30,45 M20,24 L20,45 M5,20 L35,20" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        </g>
+                    </defs>
+                    <!-- Cadena de personas de diferentes colores tomadas de la mano -->
+                    <use href="#silueta" x="10" class="text-red-500 fill-current stroke-current" />
+                    <use href="#silueta" x="60" class="text-orange-500 fill-current stroke-current" />
+                    <use href="#silueta" x="110" class="text-yellow-500 fill-current stroke-current" />
+                    <use href="#silueta" x="160" class="text-green-500 fill-current stroke-current" />
+                    <use href="#silueta" x="210" class="text-teal-500 fill-current stroke-current" />
+                    <use href="#silueta" x="260" class="text-blue-500 fill-current stroke-current" />
+                    <use href="#silueta" x="310" class="text-indigo-500 fill-current stroke-current" />
+                    <use href="#silueta" x="360" class="text-purple-500 fill-current stroke-current" />
+                    <use href="#silueta" x="410" class="text-pink-500 fill-current stroke-current" />
+                    <use href="#silueta" x="460" class="text-red-500 fill-current stroke-current" />
+                    <use href="#silueta" x="510" class="text-orange-500 fill-current stroke-current" />
+                    <use href="#silueta" x="560" class="text-yellow-500 fill-current stroke-current" />
+                    <use href="#silueta" x="610" class="text-green-500 fill-current stroke-current" />
+                    <use href="#silueta" x="660" class="text-teal-500 fill-current stroke-current" />
+                    <use href="#silueta" x="710" class="text-blue-500 fill-current stroke-current" />
+                    <use href="#silueta" x="760" class="text-purple-500 fill-current stroke-current" />
+                </svg>
+            </div>
+        </header>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 1: PORTADA / PAGINA PRINCIPAL (Home)      -->
+        <!-- ============================================== -->
+        <main id="view-home" class="app-view p-6 md:p-8">
+            <div class="space-y-4 text-blue-800 text-sm md:text-base leading-relaxed text-justify">
+                <p>
+                    Se entiende por <strong class="text-blue-950">emprendedor o emprendedora</strong> a aquella persona que enfrenta con determinación acontecimientos con alto grado de dificultad, identifica oportunidades y percibe los problemas como retos por superar organizando y haciendo uso de los recursos disponibles a su alcance. En la concepción moderna el emprendedor pasa de ser principalmente un tomador de riesgos económicos en general a un innovador capaz de superar resistencias para introducir nuevos cambios paradigmáticos con beneficio comercial y social.
+                </p>
+                <p>
+                    El papel de un <strong class="text-blue-950">líder</strong> es convencer a las demás personas de ciertas ideas con propósito y finalidad, y lograr la motivación suficiente para estimularlas a trabajar por ellas.
+                </p>
+                <p>
+                    El <strong class="text-blue-950">líder emprendedor</strong> es la persona que siendo comprometida consigo misma y con su entorno y su medio ambiente, ha logrado niveles de aprendizaje en conocimientos, habilidades y destrezas orientados a la transformación innovadora de los problemas logrando sumar esfuerzos y recursos en la resolución favorable de los mismos.
+                </p>
+                <p>
+                    Esta cartilla interactiva tiene el propósito de facilitar la información referente a la formación de líderes emprendedores, con la adquisición de la misma dispone de un curso virtual para profundizar un poco sobre este tema.
+                </p>
+            </div>
+
+            <!-- Llamado a la acción principal -->
+            <div class="text-center my-6">
+                <p class="font-bold text-blue-700 italic animate-pulse">
+                    Haga clic en cualquiera de los enlaces para comenzar...
+                </p>
+            </div>
+
+            <!-- Panel de Botones Principales -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto mb-6">
+                <button onclick="showView('view-emprendedores')" class="btn-2010 py-3 text-sm tracking-widest">
+                    Emprendedores
+                </button>
+                <button onclick="showView('view-empresarios')" class="btn-2010 py-3 text-sm tracking-widest">
+                    Empresarios
+                </button>
+            </div>
+
+            <!-- Fila de Botones Secundarios -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 max-w-2xl mx-auto">
+                <button onclick="showView('view-curso-virtual')" class="btn-2010 py-2 text-[10px]">
+                    PIN Curso Virtual
+                </button>
+                <button onclick="showView('view-quienes-somos')" class="btn-2010 py-2 text-[10px]">
+                    Quiénes Somos
+                </button>
+                <button onclick="showView('view-info-legal')" class="btn-2010 py-2 text-[10px]">
+                    Info Legal
+                </button>
+                <button onclick="showView('view-promociones')" class="btn-2010 py-2 text-[10px]">
+                    Promociones
+                </button>
+            </div>
+        </main>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 2: MATERIAL PARA EMPRENDEDORES (10 enlaces)-->
+        <!-- ============================================== -->
+        <main id="view-emprendedores" class="app-view p-6 hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-orange-800">MATERIAL PARA EMPRENDEDORES</h2>
+                <button onclick="showView('view-home')" class="px-4 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-md hover:bg-gray-700 transition">
+                    Volver a Inicio
+                </button>
+            </div>
+            <p class="text-xs text-gray-500 mb-6 text-center">10 ENLACES CON CONTENIDOS CLASIFICADOS POR TEMÁTICA</p>
+
+            <!-- Dashboard de 10 Botones con iconos SVG descriptivos -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- Botón 1 -->
+                <div onclick="openModal('negocio')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">🏪</span>
+                    <button class="btn-2010 w-full py-2 text-[11px]">Quiero montar un negocio de...</button>
+                </div>
+                <!-- Botón 2 -->
+                <div onclick="openModal('fuentes')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">🐷</span>
+                    <button class="btn-2010 w-full py-2 text-[11px]">Fuentes Financieras</button>
+                </div>
+                <!-- Botón 3 -->
+                <div onclick="openModal('aspectos')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">⚖️</span>
+                    <button class="btn-2010 w-full py-2 text-[11px]">Aspectos Legales</button>
+                </div>
+                <!-- Botón 4 -->
+                <div onclick="openModal('motivacion')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">🔥</span>
+                    <button class="btn-2010 w-full py-2 text-[11px]">Motivación</button>
+                </div>
+                <!-- Botón 5 -->
+                <div onclick="openModal('como-empezar')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">🚀</span>
+                    <button class="btn-2010 w-full py-2 text-[11px]">Cómo Empezar...</button>
+                </div>
+                <!-- Botón 6 -->
+                <div onclick="openModal('oportunidades')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">🎯</span>
+                    <button class="btn-2010 w-full py-2 text-[11px]">Oportunidades</button>
+                </div>
+                <!-- Botón 7 -->
+                <div onclick="openModal('planes')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">📋</span>
+                    <button class="btn-2010 w-full py-2 text-[11px]">Planes de Negocios</button>
+                </div>
+                <!-- Botón 8 -->
+                <div onclick="openModal('ideas')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">💡</span>
+                    <button class="btn-2010 w-full py-2 text-[11px]">Ideas de Negocios</button>
+                </div>
+                <!-- Botón 9 -->
+                <div onclick="openModal('herramientas')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">🛠️</span>
+                    <button class="btn-2010 w-full py-2 text-[11px]">Herramientas</button>
+                </div>
+                <!-- Botón 10 -->
+                <div onclick="openModal('arbol')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group col-span-1 sm:col-span-2 md:col-span-1">
+                    <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">🌳</span>
+                    <button class="btn-2010 w-full py-2 text-[11px]">Árbol Lógico</button>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 3: MATERIAL PARA EMPRESARIOS (8 enlaces)  -->
+        <!-- ============================================== -->
+        <main id="view-empresarios" class="app-view p-6 hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-orange-800">MATERIAL PARA EMPRESARIOS</h2>
+                <button onclick="showView('view-home')" class="px-4 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-md hover:bg-gray-700 transition">
+                    Volver a Inicio
+                </button>
+            </div>
+            <p class="text-xs text-gray-500 mb-6 text-center">8 ENLACES CON CONTENIDOS DE FORTALECIMIENTO EMPRESARIAL</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Botón 1 -->
+                <div onclick="openModal('kit-empresarial')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2">🧰</span>
+                    <button class="btn-2010 w-full py-2 text-[10px]">Kit de Herramientas</button>
+                </div>
+                <!-- Botón 2 -->
+                <div onclick="openModal('top-empresas')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2">🏆</span>
+                    <button class="btn-2010 w-full py-2 text-[10px]">Top Empresas Colombianas</button>
+                </div>
+                <!-- Botón 3 -->
+                <div onclick="openModal('tics')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2">💻</span>
+                    <button class="btn-2010 w-full py-2 text-[10px]">TICS para Empresarios</button>
+                </div>
+                <!-- Botón 4: Navega a la sección de Entidades de Apoyo (Página 4) -->
+                <div onclick="showView('view-entidades-apoyo')" class="p-4 border border-orange-200 bg-orange-50 rounded-lg hover:shadow-lg transition cursor-pointer flex flex-col items-center justify-between text-center group ring-2 ring-orange-100">
+                    <span class="text-3xl mb-2">🤝</span>
+                    <button class="btn-2010 w-full py-2 text-[10px] bg-orange-950">Entidades de Apoyo ➡️</button>
+                </div>
+                <!-- Botón 5 -->
+                <div onclick="openModal('credito')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2">🏦</span>
+                    <button class="btn-2010 w-full py-2 text-[10px]">Entidades de Crédito</button>
+                </div>
+                <!-- Botón 6 -->
+                <div onclick="openModal('tributaria')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2">📅</span>
+                    <button class="btn-2010 w-full py-2 text-[10px]">Información Tributaria 2010</button>
+                </div>
+                <!-- Botón 7 -->
+                <div onclick="openModal('cadenas')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2">⛓️</span>
+                    <button class="btn-2010 w-full py-2 text-[10px]">Cadenas Productivas</button>
+                </div>
+                <!-- Botón 8 -->
+                <div onclick="openModal('mercadeo')" class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition cursor-pointer bg-white flex flex-col items-center justify-between text-center group">
+                    <span class="text-3xl mb-2">📣</span>
+                    <button class="btn-2010 w-full py-2 text-[10px]">Programas de Mercadeo</button>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 4: SECCION ENTIDADES DE APOYO             -->
+        <!-- ============================================== -->
+        <main id="view-entidades-apoyo" class="app-view p-6 hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">FUENTES DE APOYO A LA MICROEMPRESA</h2>
+                    <p class="text-xs text-orange-600">Sub-sección de Material de Empresarios</p>
+                </div>
+                <button onclick="showView('view-empresarios')" class="px-4 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-md hover:bg-gray-700 transition">
+                    Volver a Empresarios
+                </button>
+            </div>
+
+            <!-- Botones de Apoyo -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-6">
+                <button onclick="openModal('proexport')" class="btn-2010 py-3 text-xs">PROEXPORT (ProColombia)</button>
+                <button onclick="openModal('la-microempresa')" class="btn-2010 py-3 text-xs">La Microempresa</button>
+                <button onclick="openModal('apoyo-empresas')" class="btn-2010 py-3 text-xs">Apoyo de Empresas</button>
+                <button onclick="openModal('sistema-nacional')" class="btn-2010 py-3 text-xs">Sistema Nacional de Apoyo</button>
+                <button onclick="openModal('apoyo-pyme')" class="btn-2010 py-3 text-xs">Apoyo Internacional a la PYME</button>
+                <button onclick="openModal('consejo-superior')" class="btn-2010 py-3 text-xs">Consejo Superior de la Microempresa</button>
+            </div>
+
+            <!-- Gráficos de apoyo visual -->
+            <div class="flex justify-around items-center border-t border-gray-200 pt-6">
+                <div class="text-center">
+                    <span class="text-5xl">🤝</span>
+                    <p class="text-xs text-gray-500 mt-2">Cooperación Empresarial</p>
+                </div>
+                <div class="text-center">
+                    <span class="text-5xl">🌍</span>
+                    <p class="text-xs text-gray-500 mt-2">Visión Global</p>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 5: PIN CURSO VIRTUAL (Instrucciones)      -->
+        <!-- ============================================== -->
+        <main id="view-curso-virtual" class="app-view p-6 hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">Acceso al Curso Virtual de Liderazgo Emprendedor</h2>
+                <button onclick="showView('view-home')" class="px-4 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-md hover:bg-gray-700 transition">
+                    Volver a Inicio
+                </button>
+            </div>
+
+            <!-- PIN Box (Simulación interactiva de raspar/obtener código) -->
+            <div class="bg-amber-50 border-2 border-dashed border-amber-300 rounded-lg p-5 mb-6 text-center max-w-md mx-auto">
+                <p class="text-xs text-gray-600 mb-2 font-medium">ESTE ES TU PIN ÚNICO Y PERSONAL ASOCIADO A TU REVISTA:</p>
+                <div class="bg-gray-800 text-white font-mono text-2xl py-2 px-6 rounded inline-block tracking-widest shadow-inner">
+                    LID-2010-EMP
+                </div>
+                <p class="text-[10px] text-gray-400 mt-2">Utiliza este código para matricularte en la plataforma virtual.</p>
+            </div>
+
+            <!-- Lista de pasos para ingresar -->
+            <div class="space-y-3 max-w-lg mx-auto bg-gray-50 p-6 rounded-lg border border-gray-200 text-sm">
+                <h3 class="font-bold text-gray-700 border-b pb-2">Instrucciones de Matriculación:</h3>
+                <ol class="list-decimal pl-5 space-y-2 text-gray-600">
+                    <li>Haga clic en el botón <strong>"ENTRAR"</strong> al final de esta sección para ir al Aula Virtual.</li>
+                    <li>Regístrese en el sistema con su correo personal de manera gratuita.</li>
+                    <li>Confirme su cuenta mediante el correo de verificación enviado (simulado).</li>
+                    <li>Busque la sección <strong>"Liderazgo Emprendedor"</strong> en la categoría de Emprendimiento.</li>
+                    <li>Haga clic sobre el curso e introduzca su PIN único para formalizar su inscripción.</li>
+                    <li>El PIN es válido de forma ilimitada para completar el material interactivo del curso.</li>
+                </ol>
+            </div>
+
+            <div class="text-center mt-6">
+                <button onclick="showView('view-aula-virtual-login')" class="px-8 py-3 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 hover:scale-105 transform transition">
+                    ENTRAR AL AULA VIRTUAL
+                </button>
+                <p class="text-xs text-gray-400 mt-2">Conexión simulada con: http://www.enemprender.com/emprendizaje</p>
+            </div>
+        </main>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 6: AULA VIRTUAL - LOGIN (Moodle 2010 style)-->
+        <!-- ============================================== -->
+        <main id="view-aula-virtual-login" class="app-view p-0 hidden">
+            <!-- Barra superior del Aula Virtual -->
+            <div class="moodle-header p-4 text-white flex justify-between items-center">
+                <h2 class="font-bold text-lg tracking-wide">Aula Virtual de EnEmprender.Com</h2>
+                <button onclick="showView('view-curso-virtual')" class="bg-gray-900 bg-opacity-30 hover:bg-opacity-50 px-3 py-1 text-xs rounded font-bold transition">
+                    Cerrar Aula Virtual
+                </button>
+            </div>
+
+            <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 bg-amber-50/20">
+                <!-- Columna Izquierda: Ingresar -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-orange-600 border-b pb-2 mb-4">Usuarios Registrados</h3>
+                        <p class="text-xs text-gray-500 mb-4">Para acceder debe contar con una cuenta registrada y activa.</p>
+                        
+                        <div class="space-y-3 text-sm">
+                            <div>
+                                <label class="block font-semibold text-gray-700">Nombre de usuario</label>
+                                <input id="login-user" type="text" value="estudiante_demo" class="w-full border border-gray-300 px-3 py-1.5 rounded focus:outline-none focus:border-orange-500 text-sm">
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-gray-700">Contraseña</label>
+                                <input type="password" value="12345678" class="w-full border border-gray-300 px-3 py-1.5 rounded focus:outline-none focus:border-orange-500 text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 border-t pt-4">
+                        <button onclick="showView('view-aula-virtual-cursos')" class="w-full py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded transition text-sm">
+                            Entrar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Registrarse -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-gray-700 border-b pb-2 mb-4">Registrarse como usuario</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">
+                            Si es su primera vez aquí, siga los pasos para configurar un perfil en la plataforma virtual de aprendizaje. Al registrarse, use el mismo correo empleado para adquirir la revista.
+                        </p>
+                        <ol class="list-decimal pl-5 text-xs text-gray-500 space-y-1.5">
+                            <li>Diligencie el Formulario de Registro con sus datos personales.</li>
+                            <li>Revise su buzón de correo electrónico para confirmar el registro de manera automática.</li>
+                            <li>Acceda con sus credenciales y elija el curso de su interés.</li>
+                        </ol>
+                    </div>
+
+                    <div class="mt-6 border-t pt-4">
+                        <button onclick="showView('view-aula-virtual-registro')" class="w-full py-2 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded transition text-sm">
+                            Comience ahora creando una cuenta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 7: AULA VIRTUAL - REGISTRO (Formulario)    -->
+        <!-- ============================================== -->
+        <main id="view-aula-virtual-registro" class="app-view p-0 hidden">
+            <div class="moodle-header p-4 text-white flex justify-between items-center">
+                <h2 class="font-bold text-lg">Nueva Cuenta - Aula Virtual</h2>
+                <button onclick="showView('view-aula-virtual-login')" class="bg-gray-900 bg-opacity-30 hover:bg-opacity-50 px-3 py-1 text-xs rounded font-bold transition">
+                    Volver al Login
+                </button>
+            </div>
+
+            <div class="p-6 max-w-lg mx-auto">
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-md">
+                    <h3 class="font-semibold text-gray-700 border-b pb-2 mb-4 text-sm">Crear un nuevo usuario y contraseña</h3>
+                    
+                    <form onsubmit="handleRegistration(event)" class="space-y-4 text-xs">
+                        <div>
+                            <label class="block font-bold text-gray-700">Nombre de usuario *</label>
+                            <input required type="text" class="w-full border border-gray-300 p-2 rounded focus:ring-1 focus:ring-orange-500">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-gray-700">Contraseña * <span class="text-gray-400 font-normal">(mínimo 8 caracteres)</span></label>
+                            <input required type="password" minlength="8" class="w-full border border-gray-300 p-2 rounded focus:ring-1 focus:ring-orange-500">
+                        </div>
+                        <div class="border-t pt-4">
+                            <h4 class="font-semibold text-gray-700 mb-3 text-sm">Datos adicionales sobre usted</h4>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-gray-700">Dirección de correo *</label>
+                            <input required type="email" class="w-full border border-gray-300 p-2 rounded focus:ring-1 focus:ring-orange-500">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-gray-700">Correo (confirmar) *</label>
+                            <input required type="email" class="w-full border border-gray-300 p-2 rounded focus:ring-1 focus:ring-orange-500">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-bold text-gray-700">Nombre *</label>
+                                <input required type="text" class="w-full border border-gray-300 p-2 rounded focus:ring-1 focus:ring-orange-500">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-gray-700">Apellido *</label>
+                                <input required type="text" class="w-full border border-gray-300 p-2 rounded focus:ring-1 focus:ring-orange-500">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-bold text-gray-700">Ciudad *</label>
+                                <input required type="text" class="w-full border border-gray-300 p-2 rounded focus:ring-1 focus:ring-orange-500">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-gray-700">País *</label>
+                                <select required class="w-full border border-gray-300 p-2 rounded focus:ring-1 focus:ring-orange-500">
+                                    <option value="Colombia">Colombia</option>
+                                    <option value="Ecuador">Ecuador</option>
+                                    <option value="Perú">Perú</option>
+                                    <option value="Venezuela">Venezuela</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="border-t pt-4 flex justify-end space-x-2">
+                            <button type="button" onclick="showView('view-aula-virtual-login')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 font-bold">Cancelar</button>
+                            <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 font-bold shadow-md">Crear Cuenta</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 8: AULA VIRTUAL - LISTADO DE CURSOS       -->
+        <!-- ============================================== -->
+        <main id="view-aula-virtual-cursos" class="app-view p-0 hidden">
+            <!-- Cabecera de usuario autenticado -->
+            <div class="moodle-header p-4 text-white flex justify-between items-center shadow-md">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">🎓</span>
+                    <div>
+                        <h2 class="font-bold text-md leading-none">Aula Virtual</h2>
+                        <span class="text-[10px] text-orange-100">Cursos virtuales interactivos</span>
+                    </div>
+                </div>
+                <div class="text-right text-xs">
+                    <p class="font-semibold">Conectado como: <span class="underline" id="logged-user-name">Javier García</span></p>
+                    <button onclick="showView('view-aula-virtual-login')" class="text-red-200 hover:text-red-100 font-bold underline ml-2">Salir</button>
+                </div>
+            </div>
+
+            <!-- Estructura de Moodle de 3 columnas -->
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 p-6">
+                <!-- Columna Izquierda: Bloque de Navegación -->
+                <div class="space-y-4">
+                    <div class="bg-gray-50 border border-gray-200 rounded p-4 shadow-sm text-xs">
+                        <h3 class="font-bold text-gray-700 border-b pb-1.5 mb-2 uppercase tracking-wide">Menú Principal</h3>
+                        <ul class="space-y-1.5 font-medium text-orange-600">
+                            <li><a href="#" class="hover:underline">📢 Novedades</a></li>
+                            <li><a href="#" class="hover:underline">🏫 Sala principal</a></li>
+                            <li><a href="#" class="hover:underline">👥 Foro de Estudiantes</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 border border-gray-200 rounded p-4 shadow-sm text-xs">
+                        <h3 class="font-bold text-gray-700 border-b pb-1.5 mb-2 uppercase tracking-wide">Calendario</h3>
+                        <div class="text-center font-bold mb-2">Mayo 2026</div>
+                        <div class="grid grid-cols-7 gap-1 text-center font-semibold text-gray-500">
+                            <div>D</div><div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div>
+                        </div>
+                        <div class="grid grid-cols-7 gap-1 text-center text-gray-600 mt-1">
+                            <!-- Calendario demo simple -->
+                            <div class="text-gray-300">26</div><div class="text-gray-300">27</div><div class="text-gray-300">28</div><div class="text-gray-300">29</div><div class="text-gray-300">30</div><div class="text-gray-300">1</div><div>2</div>
+                            <div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div class="bg-orange-200 font-bold rounded">8</div><div>9</div>
+                            <div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Central: Contenido / Cursos disponibles -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                        <h3 class="font-bold text-lg text-gray-800 border-b pb-2 mb-4">Mis Cursos Disponibles</h3>
+                        
+                        <!-- Lista de Categorías y Cursos del Aula Virtual -->
+                        <div class="space-y-4 text-sm">
+                            <!-- Categoría 1 -->
+                            <div class="border-l-4 border-blue-500 pl-4 py-1">
+                                <h4 class="font-bold text-blue-800">TICS e Informática</h4>
+                                <ul class="list-disc pl-5 mt-1 text-xs text-gray-600 space-y-1">
+                                    <li>Mantenimiento de Computadoras</li>
+                                    <li>Tecnologías Informáticas de la Comunicación (Word 2010)</li>
+                                </ul>
+                            </div>
+
+                            <!-- Categoría 2 (Emprendimiento) -->
+                            <div class="border-l-4 border-orange-500 pl-4 py-1">
+                                <h4 class="font-bold text-orange-800">Emprendimiento</h4>
+                                <div class="mt-2 space-y-3">
+                                    <div class="pl-2">
+                                        <h5 class="font-semibold text-gray-700">🌱 Programa Semillero Emprendedor</h5>
+                                        <p class="text-[11px] text-gray-500 pl-4">Emprendedores semilla - Comenzando a Emprender.</p>
+                                    </div>
+
+                                    <div class="pl-2">
+                                        <h5 class="font-semibold text-gray-700">🦁 Programa Líderes Emprendedores</h5>
+                                        <p class="text-[11px] text-gray-500 pl-4">Básico de Emprendimiento / Plan de Empresa.</p>
+                                        
+                                        <!-- Enlace Especial al Curso Requerido -->
+                                        <div class="mt-2 pl-4">
+                                            <button onclick="promptEnrollment()" class="flex items-center space-x-2 text-orange-600 hover:text-orange-700 font-bold hover:underline bg-orange-50 px-3 py-1.5 rounded border border-orange-200">
+                                                <span>🔒 LIDERAZGO EMPRENDEDOR</span>
+                                                <span class="text-[10px] bg-orange-500 text-white px-1.5 py-0.5 rounded uppercase tracking-wider font-extrabold">Matricularse</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel de Matriculación Oculto / Interactivo para el Curso Liderazgo Emprendedor -->
+                    <div id="enrollment-panel" class="hidden bg-orange-50 border-2 border-orange-300 rounded-lg p-6">
+                        <h3 class="font-bold text-orange-800 text-md border-b border-orange-200 pb-2 mb-3">Matriculación en el Curso</h3>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            El curso requiere de una clave de acceso (PIN) de 12 dígitos, la cual se localiza en la portada trasera de su cartilla interactiva (puede encontrarla raspada en el botón "PIN Curso Virtual").
+                        </p>
+                        <div class="space-y-3 max-w-sm">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">Clave de Acceso (PIN):</label>
+                                <input id="access-pin-input" type="text" placeholder="Ej: LID-2010-EMP" class="w-full border border-gray-300 px-3 py-1.5 rounded uppercase font-mono text-sm focus:outline-none focus:ring-1 focus:ring-orange-500">
+                            </div>
+                            <button onclick="verifyEnrollment()" class="px-5 py-2 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded text-xs transition shadow">
+                                Matricularme en este curso
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Aula Activa (Unlocked) -->
+                    <div id="course-active-area" class="hidden bg-white border border-green-200 rounded-lg p-6 shadow-md">
+                        <div class="flex items-center justify-between border-b pb-3 mb-4">
+                            <div>
+                                <span class="bg-green-100 text-green-800 text-xs px-2.5 py-0.5 rounded-full font-bold">Inscrito Exitosamente</span>
+                                <h3 class="font-bold text-xl text-gray-800 mt-1">LIDERAZGO EMPRENDEDOR</h3>
+                            </div>
+                            <span class="text-4xl">🦁</span>
+                        </div>
+                        
+                        <!-- Lecciones del Curso Simuladas -->
+                        <div class="space-y-4 text-xs">
+                            <p class="text-gray-600">Bienvenido al espacio formativo de la cartilla interactiva. Complete las siguientes lecciones:</p>
+                            
+                            <div class="border rounded p-3 bg-gray-50 hover:bg-green-50/20 transition cursor-pointer" onclick="showLesson(1)">
+                                <h4 class="font-bold text-gray-800 flex justify-between">
+                                    <span>Clase 1: El Perfil y Características del Líder Emprendedor</span>
+                                    <span class="text-green-600">Completar ➡️</span>
+                                </h4>
+                            </div>
+                            <div class="border rounded p-3 bg-gray-50 hover:bg-green-50/20 transition cursor-pointer" onclick="showLesson(2)">
+                                <h4 class="font-bold text-gray-800 flex justify-between">
+                                    <span>Clase 2: Identificación de Oportunidades de Negocio</span>
+                                    <span class="text-green-600">Completar ➡️</span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Bloques Secundarios -->
+                <div class="space-y-4 text-xs">
+                    <div class="bg-gray-50 border border-gray-200 rounded p-4 shadow-sm">
+                        <h3 class="font-bold text-gray-700 border-b pb-1.5 mb-2 uppercase tracking-wide">Usuarios en línea</h3>
+                        <p class="text-[11px] text-gray-500">Usuarios activos en los últimos 5 minutos:</p>
+                        <div class="flex items-center space-x-2 mt-2 font-semibold text-gray-700">
+                            <div class="w-2.5 h-2.5 bg-green-500 rounded-full"></div>
+                            <span>Javier García (Tutor)</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 border border-gray-200 rounded p-4 shadow-sm">
+                        <h3 class="font-bold text-gray-700 border-b pb-1.5 mb-2 uppercase tracking-wide">Actividad Reciente</h3>
+                        <p class="text-[11px] text-gray-400">Sin actividades registradas desde el último inicio de sesión.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 9: QUIENES SOMOS (Placeholder)            -->
+        <!-- ============================================== -->
+        <main id="view-quienes-somos" class="app-view p-6 hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">QUIÉNES SOMOS</h2>
+                <button onclick="showView('view-home')" class="px-4 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-md hover:bg-gray-700 transition">
+                    Volver a Inicio
+                </button>
+            </div>
+            <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
+                <p>
+                    <strong>Corporación eMujer Emprende</strong> y <strong>EnEmprender.Com</strong> son iniciativas dedicadas al fomento de la cultura del emprendimiento, el liderazgo innovador y el fortalecimiento del tejido empresarial.
+                </p>
+                <p>
+                    A través de recursos pedagógicos interactivos de libre acceso o de distribución autorizada, acompañamos a miles de emprendedores en el diseño, estructuración y consolidación de sus proyectos productivos.
+                </p>
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-xs">
+                    <p class="font-semibold text-gray-700">Contacto Directo:</p>
+                    <p>📧 Correo: <span class="text-blue-600 font-mono">info@enemprender.com</span></p>
+                    <p>🌐 Portal Web: <span class="text-blue-600 font-mono">www.enemprender.com</span></p>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 10: INFO LEGAL (Página 8)                 -->
+        <!-- ============================================== -->
+        <main id="view-info-legal" class="app-view p-6 hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-red-800 uppercase tracking-wider">Derechos Reservados e Información Legal</h2>
+                <button onclick="showView('view-home')" class="px-4 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-md hover:bg-gray-700 transition">
+                    Volver a Inicio
+                </button>
+            </div>
+
+            <!-- Caja con scroll para simular lectura del texto oficial -->
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 text-xs text-gray-600 space-y-3 leading-relaxed max-h-[400px] overflow-y-auto">
+                <p class="font-bold text-red-700 text-center uppercase tracking-wide">
+                    PROHIBIDA SU REPRODUCCIÓN TOTAL O PARCIAL SIN LA AUTORIZACIÓN ESCRITA DEL AUTOR
+                </p>
+                <p>
+                    Usted ha adquirido este producto denominado "Liderazgo emprendedor" – Cartilla Interactiva el cual consiste en un curso virtual de emprendimiento ofrecido por la escuela de emprendimiento empresarial EnEmprender.com.
+                </p>
+                <p>
+                    Adicionalmente usted recibe por la compra de este producto una completa compilación de temas relacionados con el liderazgo y el emprendimiento de manera totalmente gratuita y sin ningún costo cuya fuente es de disponibilidad y accesibilidad: Free ó creative commons tomada de diferentes portales de Internet respetando las referencias de propiedad intelectual de cada uno de los autores de los documentos expuesto en esta edición virtual interactiva.
+                </p>
+                <p>
+                    Por lo anteriormente expuesto usted acepta los términos de condiciones relativas al uso de este producto en especial lo relacionado con los alcances y limitaciones de la información expuesta: el usuario puede usar la información publicada en la presente obra, siempre y cuando acepte los términos y condiciones establecidos aquí, de lo contrario deberá abstenerse de usar la información expuesta.
+                </p>
+                <p>
+                    Esta obra compila material exclusivo para emprendedores y facilita dicha información de carácter formativo para que los emprendedores y otros usuarios interesados, obtengan información útil para sus actividades de emprendimiento, creación y fortalecimiento de empresas. Los responsables de esta obra no otorgan garantía alguna, expresa o implícita, de que usted obtendrá beneficios o un apoyo empresarial específico a través del uso de la información publicada, como tampoco ejerce control alguno sobre la veracidad o exactitud de la información publicada y relacionada mediante hipervínculos internos y externos, ni sobre la capacidad de las entidades relacionada o mencionadas para cumplir a cabalidad con los servicios ofrecidos por cada una de ellas. El uso de la información publicada, al igual que las decisiones que usted adopte con base en la misma, se hacen bajo su propio y exclusivo dominio renunciando a todo derecho de reclamación.
+                </p>
+                <p class="font-semibold text-gray-800">
+                    - © EnEmprender.Com © Todos los derechos reservados. La información aquí publicada no se podrá reproducir total o parcialmente sin la autorización escrita del autor.
+                </p>
+                <p>
+                    EnEmprender.com es una marca registrada relacionada con la escuela de emprendimiento empresarial y sus proyectos derivados propietaria de los derechos industriales, intelectuales y artísticos de la presente obra.
+                </p>
+            </div>
+
+            <div class="mt-6 text-center border-t pt-4 text-xs text-gray-500">
+                <p class="font-bold">REVISTA INTERACTIVA ENEMPRENDER.COM - COPYRIGHT 2010</p>
+                <p>AUTOR: JAVIER GARCÍA – Correo electrónico: enemprender@gmail.com</p>
+            </div>
+        </main>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 11: PROMOCIONES (Placeholder)            -->
+        <!-- ============================================== -->
+        <main id="view-promociones" class="app-view p-6 hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">PROMOCIONES Y OFERTAS</h2>
+                <button onclick="showView('view-home')" class="px-4 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-md hover:bg-gray-700 transition">
+                    Volver a Inicio
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-xl mx-auto">
+                <div class="p-6 border border-orange-200 bg-orange-50/50 rounded-lg text-center">
+                    <span class="text-4xl">📚</span>
+                    <h3 class="font-bold text-gray-800 mt-2 text-sm">Cartillas de Formación</h3>
+                    <p class="text-xs text-gray-500 mt-1">Suscripción digital anual a temas exclusivos de Plan de Empresa.</p>
+                </div>
+                <div class="p-6 border border-teal-200 bg-teal-50/50 rounded-lg text-center">
+                    <span class="text-4xl">🤝</span>
+                    <h3 class="font-bold text-gray-800 mt-2 text-sm">Mentoría 1 a 1</h3>
+                    <p class="text-xs text-gray-500 mt-1">Asesorías personalizadas con Javier García para estructuración de tu idea.</p>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- FOOTER COMÚN (EnEmprender) -->
+        <footer class="bg-gray-50 p-4 border-t border-gray-200 text-center text-[10px] text-gray-500">
+            <p>Prohibida Su reproducción total o parcial Derechos Reservados © 2010 - EnEmprender.Com - info@enemprender.com</p>
+        </footer>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- COMPONENTE DINÁMICO: MODAL DE CONTENIDOS       -->
+    <!-- ============================================== -->
+    <div id="content-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full transform scale-95 transition-transform duration-300 overflow-hidden">
+            <!-- Modal Header -->
+            <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <div class="flex items-center space-x-3">
+                    <span id="modal-icon" class="text-3xl"></span>
+                    <h3 id="modal-title" class="font-bold text-lg text-gray-800"></h3>
+                </div>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-6 text-xs text-gray-600 space-y-3 leading-relaxed max-h-[60vh] overflow-y-auto" id="modal-body">
+                <!-- Se inyecta dinámicamente -->
+            </div>
+            <!-- Modal Footer -->
+            <div class="p-4 bg-gray-50 border-t border-gray-100 flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-1.5 bg-gray-800 text-white rounded hover:bg-gray-700 font-bold text-xs transition">
+                    Cerrar Contenido
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- LOGICA DE CONTROL DE LA APP (JavaScript)       -->
+    <!-- ============================================== -->
+    <script>
+        // Sistema de navegación SPA de alta fidelidad
+        function showView(viewId) {
+            document.querySelectorAll('.app-view').forEach(view => {
+                view.classList.add('hidden');
+            });
+            document.getElementById(viewId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Gestión del registro simulado del Aula Virtual
+        function handleRegistration(event) {
+            event.preventDefault();
+            alert("Cuenta de correo registrada con éxito. Se ha enviado un código de acceso a su dirección electrónica. Redirigiendo a la pantalla de Cursos...");
+            showView('view-aula-virtual-cursos');
+        }
+
+        // Simulación del Aula Virtual
+        function promptEnrollment() {
+            document.getElementById('enrollment-panel').classList.remove('hidden');
+            document.getElementById('enrollment-panel').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function verifyEnrollment() {
+            const inputVal = document.getElementById('access-pin-input').value.trim().toUpperCase();
+            if (inputVal === 'LID-2010-EMP') {
+                alert("¡Inscripción Exitosa! El curso ha sido desbloqueado de forma permanente.");
+                document.getElementById('enrollment-panel').classList.add('hidden');
+                document.getElementById('course-active-area').classList.remove('hidden');
+                document.getElementById('course-active-area').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert("Código de Acceso inválido. Verifique su PIN.");
+            }
+        }
+
+        function showLesson(lessonId) {
+            if (lessonId === 1) {
+                alert("Clase 1 cargada con éxito: Conceptos Básicos de Liderazgo, Características esenciales del liderazgo y desarrollo de habilidades interpersonales.");
+            } else {
+                alert("Clase 2 cargada con éxito: Técnicas avanzadas de exploración de mercados y evaluación de ideas viables de emprendimiento.");
+            }
+        }
+
+        // Base de Datos de contenidos pedagógicos de la Revista
+        const contentDatabase = {
+            // Emprendedores
+            'negocio': {
+                title: "Quiero Montar un Negocio De...",
+                icon: "🏪",
+                body: `<p class="font-semibold text-gray-800">Criterios clave para elegir tu sector de negocio:</p>
+                       <ul class="list-disc pl-5 space-y-2 mt-2">
+                           <li><strong>Alineación personal:</strong> Identifica si posees conocimientos técnicos o una pasión clara sobre el producto o servicio que vas a comercializar.</li>
+                           <li><strong>Análisis de Demanda:</strong> Investiga si existen clientes suficientes dispuestos a pagar por resolver el problema que atacas.</li>
+                           <li><strong>Modelo de ingresos:</strong> Estructura de forma rápida cómo facturarás (servicios directos, venta unitaria, suscripción).</li>
+                       </ul>`
+            },
+            'fuentes': {
+                title: "Fuentes Financieras",
+                icon: "🐷",
+                body: `<p class="font-semibold text-gray-800">Alternativas viables de financiación para emprender:</p>
+                       <ul class="list-disc pl-5 space-y-2 mt-2">
+                           <li><strong>Capital Propio (Bootstrapping):</strong> Fondos de ahorro del fundador que reducen la deuda de inicio.</li>
+                           <li><strong>FFF (Family, Friends and Fools):</strong> Aportes iniciales de allegados y redes cercanas.</li>
+                           <li><strong>Fondos Públicos:</strong> Subvenciones del estado sin retorno o créditos de fomento de bajo interés.</li>
+                       </ul>`
+            },
+            'aspectos': {
+                title: "Aspectos Legales",
+                icon: "⚖️",
+                body: `<p class="font-semibold text-gray-800">Formalización del negocio en el marco legal:</p>
+                       <p class="mt-2">Formalizarse ofrece seriedad ante clientes e instituciones del Estado. Los pasos esenciales incluyen la inscripción en el registro mercantil ante las Cámaras de Comercio locales, solicitud del Registro Único Tributario (RUT) y evaluación de la estructura societaria adecuada (ej: Sociedad por Acciones Simplificada S.A.S.).</p>`
+            },
+            'motivacion': {
+                title: "Motivación y Actitud Emprendedora",
+                icon: "🔥",
+                body: `<p class="font-semibold text-gray-800">La psicología detrás del éxito comercial:</p>
+                       <p class="mt-2">La resiliencia y automotivación diferencian a los emprendedores que prosperan de aquellos que abandonan. El fracaso es considerado en la cultura empresarial moderna como un paso intermedio en la validación y el aprendizaje de campo de un proyecto de negocio.</p>`
+            },
+            'como-empezar': {
+                title: "Cómo Empezar...",
+                icon: "🚀",
+                body: `<p class="font-semibold text-gray-800">Guía de 3 pasos sencillos para arrancar:</p>
+                       <ol class="list-decimal pl-5 space-y-2 mt-2">
+                           <li>Define tu propuesta de valor única de forma muy sencilla.</li>
+                           <li>Desarrolla un prototipo rápido de bajo costo para probar con tus primeros usuarios (Producto Mínimo Viable).</li>
+                           <li>Recoge retroalimentación de manera sistemática y ajusta tu oferta sobre la marcha.</li>
+                       </ol>`
+            },
+            'oportunidades': {
+                title: "Identificación de Oportunidades",
+                icon: "🎯",
+                body: `<p class="font-semibold text-gray-800">¿Dónde se encuentran las mejores ideas?</p>
+                       <p class="mt-2">Las oportunidades comerciales nacen de las ineficiencias del mercado actual, cambios tecnológicos veloces, normatividad de reciente sanción y necesidades insatisfechas o subatendidas por competidores del sector tradicional.</p>`
+            },
+            'planes': {
+                title: "Planes de Negocios",
+                icon: "📋",
+                body: `<p class="font-semibold text-gray-800">Estructura básica de un Plan de Negocios estándar:</p>
+                       <ul class="list-disc pl-5 space-y-1.5 mt-2">
+                           <li>Resumen Ejecutivo de alto impacto.</li>
+                           <li>Análisis exhaustivo del mercado objetivo.</li>
+                           <li>Plan Operativo de la cadena de valor o prestación de servicios.</li>
+                           <li>Estructura de costos, proyecciones financieras y retorno de inversión previsto.</li>
+                       </ul>`
+            },
+            'ideas': {
+                title: "Ideas de Negocios",
+                icon: "💡",
+                body: `<p class="font-semibold text-gray-800">Metodologías creativas recomendadas:</p>
+                       <p class="mt-2">Utilice metodologías de diseño y generación de ideas como la matriz SCAMPER para transformar negocios clásicos o aburridos en propuestas sumamente atractivas y adaptadas al entorno actual.</p>`
+            },
+            'herramientas': {
+                title: "Herramientas de Apoyo",
+                icon: "🛠️",
+                body: `<p class="font-semibold text-gray-800">Recursos digitales listos para usar:</p>
+                       <p class="mt-2">Utilice de manera sistemática hojas de cálculo para evaluar flujos de caja operativos e incorpore el Lienzo Canvas para la visualización del modelo de negocio en una sola página de forma gráfica.</p>`
+            },
+            'arbol': {
+                title: "Árbol Lógico",
+                icon: "🌳",
+                body: `<p class="font-semibold text-gray-800">Análisis Metódico de Problemas:</p>
+                       <p class="mt-2">El Árbol de Problemas es una herramienta de planificación para diagnosticar situaciones. El tronco simboliza el problema principal, las raíces son las causas generadoras subyacentes y las ramas representan los efectos perjudiciales en el ecosistema.</p>`
+            },
+
+            // Empresarios
+            'kit-empresarial': {
+                title: "Kit de Herramientas del Empresario",
+                icon: "🧰",
+                body: `<p class="font-semibold text-gray-800">Material de control administrativo de alto impacto:</p>
+                       <p class="mt-2">Incluye diagnósticos periódicos de rentabilidad, evaluación de desempeño de recursos humanos y herramientas analíticas básicas de control de calidad para procesos internos.</p>`
+            },
+            'top-empresas': {
+                title: "Top Empresas Colombianas",
+                icon: "🏆",
+                body: `<p class="font-semibold text-gray-800">Casos de Éxito en Colombia:</p>
+                       <p class="mt-2">Estudio estructurado del comportamiento gerencial y estratégico de las organizaciones líderes en crecimiento sostenible en el país. El objetivo es inspirar y extrapolar sus buenas prácticas gerenciales.</p>`
+            },
+            'tics': {
+                title: "TICS para Empresarios",
+                icon: "💻",
+                body: `<p class="font-semibold text-gray-800">Uso inteligente de la tecnología aplicada:</p>
+                       <p class="mt-2">Plataformas ERP sencillas, software de bases de datos de clientes CRM, canales de marketing de costo bajo e infraestructura básica de comercio electrónico seguro.</p>`
+            },
+            'credito': {
+                title: "Entidades de Crédito",
+                icon: "🏦",
+                body: `<p class="font-semibold text-gray-800">Alternativas de Crédito Empresarial:</p>
+                       <p class="mt-2">Portafolio de productos financieros enfocados al desarrollo de la microempresa colombiana por medio de entidades de microcrédito especializadas y bancos públicos o comerciales asociados.</p>`
+            },
+            'tributaria': {
+                title: "Información Tributaria 2010",
+                icon: "📅",
+                body: `<p class="font-semibold text-gray-800">Calendario e Histórico de Obligaciones Tributarias:</p>
+                       <p class="mt-2">Información de consulta técnica e histórica referencial respecto a los regímenes del IVA, Retención en la Fuente, Impuestos de Renta y otras contribuciones fiscales aplicables en el año de publicación 2010.</p>`
+            },
+            'cadenas': {
+                title: "Cadenas Productivas",
+                icon: "⛓️",
+                body: `<p class="font-semibold text-gray-800">Sinergias entre eslabones industriales:</p>
+                       <p class="mt-2">Mecanismo para la integración óptima entre microempresas productoras y proveedores del sector comercial con el propósito de optimizar costos unitarios de transporte, manufactura y despacho.</p>`
+            },
+            'mercadeo': {
+                title: "Programas de Mercadeo",
+                icon: "📣",
+                body: `<p class="font-semibold text-gray-800">Estrategias efectivas para captación de clientes:</p>
+                       <p class="mt-2">Desarrollo sistemático de tácticas comerciales enfocadas a la retención de clientes, optimización de valor de vida útil del usuario y mix de marketing enfocado en canales digitales alternativos.</p>`
+            },
+
+            // Apoyo
+            'proexport': {
+                title: "PROEXPORT (ProColombia)",
+                icon: "✈️",
+                body: `<p class="font-semibold text-gray-800">Internacionalización de la PYME:</p>
+                       <p class="mt-2">Entidad gubernamental que promueve la inversión extranjera, exportaciones no tradicionales de productos locales y la internacionalización comercial de los pequeños y medianos emprendedores.</p>`
+            },
+            'la-microempresa': {
+                title: "La Microempresa Nacional",
+                icon: "🏢",
+                body: `<p class="font-semibold text-gray-800">Ecosistema Microempresarial:</p>
+                       <p class="mt-2">La ley nacional y políticas públicas promueven e incentivan el sostenimiento económico continuo de la microempresa mediante exoneraciones iniciales o capacitaciones formativas constantes.</p>`
+            },
+            'apoyo-empresas': {
+                title: "Apoyo de Empresas Privadas",
+                icon: "🤝",
+                body: `<p class="font-semibold text-gray-800">Iniciativas de Padrinazgo:</p>
+                       <p class="mt-2">Programas especiales de Responsabilidad Social Empresarial donde compañías consolidadas actúan como mentores y clientes estratégicos de pequeños grupos de microempresas en crecimiento.</p>`
+            },
+            'sistema-nacional': {
+                title: "Sistema Nacional de Apoyo",
+                icon: "🌐",
+                body: `<p class="font-semibold text-gray-800">Redes de Emprendimiento:</p>
+                       <p class="mt-2">Integración de esfuerzos públicos y privados bajo normatividades de fomento que coordinan universidades, cámaras de comercio e instituciones del gobierno para guiar y financiar nuevos emprendedores.</p>`
+            },
+            'apoyo-pyme': {
+                title: "Apoyo Internacional a la PYME",
+                icon: "🌎",
+                body: `<p class="font-semibold text-gray-800">Cooperación e Intercambio Global:</p>
+                       <p class="mt-2">Fondos específicos y alianzas con entidades de cooperación internacional que ofrecen asistencia técnica directa o financiamiento para proyectos enfocados en la innovación tecnológica sustentable.</p>`
+            },
+            'consejo-superior': {
+                title: "Consejo Superior de la Microempresa",
+                icon: "👔",
+                body: `<p class="font-semibold text-gray-800">Asesoría Pública de Alto Nivel:</p>
+                       <p class="mt-2">Órgano dedicado a proponer directrices, analizar planes de estímulo económico y coordinar el desarrollo articulado de las micro, pequeñas y medianas empresas frente al ejecutivo nacional colombiano.</p>`
+            }
+        };
+
+        // Sistema dinámico de modales interactivos
+        function openModal(key) {
+            const data = contentDatabase[key];
+            if (!data) return;
+
+            document.getElementById('modal-icon').innerText = data.icon;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-body').innerHTML = data.body;
+
+            const modal = document.getElementById('content-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.firstElementChild.classList.remove('scale-95');
+                modal.firstElementChild.classList.add('scale-100');
+            }, 50);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('content-modal');
+            modal.firstElementChild.classList.remove('scale-100');
+            modal.firstElementChild.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+    </script>
+</body>
+</html>

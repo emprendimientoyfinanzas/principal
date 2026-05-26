@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Preparación Declaración de Renta - Formulario 210</title>
+  <style>
+    :root { --primary: #2563eb; --primary-hover: #1d4ed8; --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af; --gray-600: #4b5563; --gray-700: #374151; --gray-800: #1f2937; --gray-900: #111827; --border-radius: 12px; --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05); --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif; background: linear-gradient(135deg, var(--gray-50) 0%, #e0f2fe 100%); margin: 0; padding: 1rem; color: var(--gray-800); line-height: 1.6; min-height: 100vh; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .header { background: white; border-radius: var(--border-radius); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 1rem; }
+    .header-icon { width: 60px; height: 60px; border-radius: var(--border-radius); background: linear-gradient(135deg, var(--primary), #3b82f6); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem; flex-shrink: 0; }
+    .header-content h1 { font-size: 1.5rem; font-weight: 700; margin: 0 0 0.25rem 0; color: var(--gray-900); }
+    .header-subtitle { color: var(--gray-600); font-size: 0.9rem; margin: 0; }
+    .main-card { background: white; border-radius: var(--border-radius); box-shadow: var(--shadow-lg); overflow: hidden; }
+    .progress-bar { height: 4px; background: var(--gray-200); position: relative; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--success)); transition: width 0.3s ease; border-radius: 2px; }
+    .steps-nav { padding: 1rem; border-bottom: 1px solid var(--gray-200); overflow-x: auto; }
+    .steps-container { display: flex; gap: 0.5rem; min-width: max-content; }
+    .step-btn { background: var(--gray-100); border: 1px solid var(--gray-300); padding: 0.75rem 1rem; border-radius: 8px; color: var(--gray-600); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; min-width: 100px; text-align: center; }
+    .step-btn.active { background: var(--primary); border-color: var(--primary); color: white; box-shadow: var(--shadow-sm); }
+    .step-btn.completed { background: var(--success); border-color: var(--success); color: white; }
+    .step-content { padding: 2rem; }
+    .wizard-step { display: none; }
+    .wizard-step.active { display: block; }
+    .section-title { font-size: 1.5rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .section-subtitle { color: var(--gray-600); margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .form-grid { display: grid; gap: 1.5rem; margin-bottom: 2rem; }
+    .form-row { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-label { font-weight: 600; color: var(--gray-700); margin-bottom: 0.5rem; font-size: 0.875rem; }
+    .form-input, .form-textarea, .form-select { padding: 0.75rem; border: 2px solid var(--gray-200); border-radius: 8px; font-size: 1rem; transition: all 0.2s ease; background: white; width: 100%; }
+    .form-input:focus, .form-textarea:focus, .form-select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .btn { padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; gap: 0.5rem; justify-content: center; text-decoration: none; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-secondary { background: white; color: var(--primary); border: 2px solid var(--primary); }
+    .btn-secondary:hover { background: var(--primary); color: white; }
+    .btn-danger { background: var(--danger); color: white; }
+    .btn-success { background: var(--success); color: white; }
+    .side-card { background: var(--gray-50); border: 2px solid var(--gray-200); border-radius: var(--border-radius); padding: 1.5rem; }
+    .side-card-title { font-weight: 700; color: var(--gray-900); margin-bottom: 1rem; font-size: 1.1rem; }
+    .alert { padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid; }
+    .alert-info { background: #eff6ff; border-color: var(--primary); color: #1e40af; }
+    .alert-success { background: #f0fdf4; border-color: var(--success); color: #166534; }
+    .alert-warning { background: #fffbeb; border-color: var(--warning); color: #92400e; }
+    .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200); margin: 1rem 0; }
+    .table { width: 100%; border-collapse: collapse; background: white; }
+    .table th { background: var(--gray-50); padding: 1rem; text-align: left; font-weight: 600; color: var(--gray-700); border-bottom: 2px solid var(--gray-200); }
+    .table td { padding: 1rem; border-bottom: 1px solid var(--gray-200); }
+    .table tbody tr:hover { background: var(--gray-50); }
+    .summary-card { background: white; border: 2px solid var(--primary); border-radius: var(--border-radius); padding: 1.5rem; margin: 1rem 0; }
+    .summary-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-200); }
+    .summary-item:last-child { border-bottom: none; font-weight: 700; font-size: 1.1rem; color: var(--primary); }
+    .summary-label { color: var(--gray-700); }
+    .summary-value { font-weight: 600; color: var(--gray-900); }
+    .controls { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 1rem 0; }
+    .navigation { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; background: var(--gray-50); border-top: 1px solid var(--gray-200); }
+    .nav-info { color: var(--gray-600); font-size: 0.875rem; }
+    .nav-buttons { display: flex; gap: 0.75rem; }
+    .footer { text-align: center; margin-top: 2rem; padding: 1rem; color: var(--gray-600); font-size: 0.875rem; }
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+    .input-group { display: flex; gap: 0.5rem; align-items: end; }
+    .input-group .form-input { flex: 1; }
+    .remove-btn { background: var(--danger); color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    @media (min-width: 640px) { .form-row { grid-template-columns: 1fr 1fr; } .form-grid.two-cols { grid-template-columns: 2fr 1fr; } .header-content h1 { font-size: 1.75rem; } .section-title { font-size: 1.75rem; } }
+    @media (min-width: 768px) { body { padding: 2rem; } .header { padding: 2rem; } .step-content { padding: 2.5rem; } .form-row.three-cols { grid-template-columns: 1fr 1fr 1fr; } }
+    @media (min-width: 1024px) { .form-grid.two-cols { grid-template-columns: 1fr 400px; } }
+    @media (max-width: 639px) { .header { flex-direction: column; text-align: center; } .header-icon { width: 50px; height: 50px; font-size: 1rem; } .controls { justify-content: center; } .navigation { flex-direction: column; gap: 1rem; text-align: center; } .nav-buttons { width: 100%; justify-content: center; } .btn { min-width: 120px; } .table { font-size: 0.875rem; } .table th, .table td { padding: 0.75rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-icon">210</div>
+      <div class="header-content">
+        <h1>Preparación Declaración de Renta</h1>
+        <p class="header-subtitle">Formulario 210 - Herramienta preparatoria para personas naturales</p>
+      </div>
+    </div>
+
+    <div class="main-card">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 16.67%"></div>
+      </div>
+
+      <div class="steps-nav">
+        <div class="steps-container">
+          <button class="step-btn active" data-step="0">📋 Datos</button>
+          <button class="step-btn" data-step="1">🏠 Patrimonio</button>
+          <button class="step-btn" data-step="2">💰 Ingresos</button>
+          <button class="step-btn" data-step="3">📊 Deducciones</button>
+          <button class="step-btn" data-step="4">🧮 Cálculos</button>
+          <button class="step-btn" data-step="5">📄 Resumen</button>
+        </div>
+      </div>
+
+      <div class="step-content">
+        
+        <!-- STEP 0 - IDENTIFICACIÓN -->
+        <section class="wizard-step active" data-step="0">
+          <div class="section-title">📋 Datos de identificación</div>
+          <div class="section-subtitle">Completa tu información personal, consulta tu fecha límite y verifica si tienes obligación de declarar.</div>
+          
+          <div class="form-grid two-cols">
+            <div>
+              <div class="form-group">
+                <label class="form-label" for="nombre">Nombres y apellidos</label>
+                <input id="nombre" class="form-input" type="text" placeholder="Nombre completo" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="documento">NIT / Cédula</label>
+                <input id="documento" class="form-input" type="text" placeholder="Escribe tu número sin puntos y presiona Tab" />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="ciudad">Ciudad</label>
+                  <input id="ciudad" class="form-input" type="text" placeholder="Ciudad / Municipio" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="email">Correo electrónico</label>
+                  <input id="email" class="form-input" type="email" placeholder="correo@ejemplo.com" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="rut">Estado del RUT</label>
+                <input id="rut" class="form-input" type="text" placeholder="Ej: RUT activo - actividad principal: ..." />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="uvtValue">Valor UVT año gravable (pesos)</label>
+                <input id="uvtValue" class="form-input" type="number" placeholder="Ej: 47065 para año gravable 2023" />
+              </div>
+              <!-- NUEVO: Contenedor para mostrar la fecha de vencimiento -->
+              <div id="vencimientoResult" style="margin-top: 1rem;"></div>
+            </div>
+
+            <div class="side-card">
+              <div class="side-card-title">Verificación de obligación</div>
+              <p style="color: var(--gray-600); font-size: 0.875rem; margin-bottom: 1rem;">Introduce tus totales para verificar si estás obligado a declarar.</p>
+              <div class="form-group">
+                <label class="form-label" for="totIngresos">Total ingresos año (pesos)</label>
+                <input id="totIngresos" class="form-input" type="number" placeholder="0" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="totPatrimonio">Patrimonio al 31-12 (pesos)</label>
+                <input id="totPatrimonio" class="form-input" type="number" placeholder="0" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="totConsumos">Consumos/consignaciones (pesos)</label>
+                <input id="totConsumos" class="form-input" type="number" placeholder="0" />
+              </div>
+              <div class="controls">
+                <button class="btn btn-primary" id="checkObligacion">Verificar</button>
+                <button class="btn btn-secondary" id="clearIdentification">Limpiar</button>
+              </div>
+              <div id="obligacionResult"></div>
+              
+              <!-- NUEVO: Sección informativa de regímenes -->
+              <div class="side-card-title" style="margin-top: 1.5rem;">¿A qué régimen perteneces?</div>
+              <div class="alert alert-info">
+                  <p style="font-size: 0.875rem; margin-top:0;">La mayoría de personas naturales pertenecen al <strong>Régimen Ordinario</strong>. Sin embargo, existe el <strong>Régimen Simple de Tributación (RST)</strong> como una alternativa.</p>
+                  <ul style="font-size: 0.875rem; padding-left: 1.2rem; margin-bottom: 1rem;">
+                      <li><strong>Ordinario:</strong> Sistema tradicional con tarifas progresivas (Art. 241).</li>
+                      <li><strong>Simple (RST):</strong> Unifica impuestos con tarifas más bajas sobre ingresos brutos. Requiere inscripción voluntaria.</li>
+                  </ul>
+                  <a href="https://www.dian.gov.co/impuestos/personas/RST/Paginas/default.aspx" target="_blank" rel="noopener noreferrer" style="font-weight: bold; color: inherit;">Consulta más en el portal de la DIAN →</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 1 - PATRIMONIO -->
+        <section class="wizard-step" data-step="1">
+            <div class="section-title">🏠 Patrimonio (Activos y Pasivos)</div>
+            <div class="section-subtitle">Registra todos tus bienes (activos) y deudas (pasivos) al 31 de diciembre del año gravable.</div>
+            <div class="alert alert-info">
+                <strong>Activos:</strong> Incluye propiedades, vehículos, inversiones, cuentas bancarias, etc.<br>
+                <strong>Pasivos:</strong> Incluye préstamos, tarjetas de crédito, hipotecas, etc., con soporte válido.
+            </div>
+            <div style="margin-bottom: 2rem;">
+                <h3 style="color: var(--gray-700); margin-bottom: 1rem;">Activos</h3>
+                <div class="input-group">
+                    <input id="assetDesc" class="form-input" type="text" placeholder="Descripción del activo (ej: Vivienda principal)" />
+                    <input id="assetValue" class="form-input" type="number" placeholder="Valor en pesos" />
+                    <button class="btn btn-primary" id="addAsset">+ Añadir</button>
+                </div>
+                <div class="table-container">
+                    <table class="table" id="assetsTable">
+                        <thead><tr><th>Descripción</th><th class="text-right">Valor</th><th style="width: 60px;"></th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="margin-bottom: 2rem;">
+                <h3 style="color: var(--gray-700); margin-bottom: 1rem;">Pasivos</h3>
+                <div class="input-group">
+                    <input id="liabDesc" class="form-input" type="text" placeholder="Descripción del pasivo (ej: Préstamo hipotecario)" />
+                    <input id="liabValue" class="form-input" type="number" placeholder="Valor en pesos" />
+                    <button class="btn btn-primary" id="addLiab">+ Añadir</button>
+                </div>
+                <div class="table-container">
+                    <table class="table" id="liabsTable">
+                        <thead><tr><th>Descripción</th><th class="text-right">Valor</th><th style="width: 60px;"></th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-item"><span class="summary-label">Total Activos:</span><span class="summary-value" id="sumAssets">$0</span></div>
+                <div class="summary-item"><span class="summary-label">Total Pasivos:</span><span class="summary-value" id="sumLiabs">$0</span></div>
+                <div class="summary-item"><span class="summary-label">Patrimonio Líquido:</span><span class="summary-value" id="netPatrimony">$0</span></div>
+            </div>
+        </section>
+
+        <!-- STEP 2 - INGRESOS -->
+        <section class="wizard-step" data-step="2">
+            <div class="section-title">💰 Ingresos por categoría</div>
+            <div class="section-subtitle">Clasifica tus ingresos según su naturaleza. Puedes usar el formato: "Concepto - valor" en líneas separadas.</div>
+            <div class="form-group">
+                <label class="form-label" for="ingTrabajo">Rentas de trabajo (salarios, honorarios, comisiones)</label>
+                <textarea id="ingTrabajo" class="form-textarea" placeholder="Ejemplo:&#10;Empresa ABC - 24000000&#10;Honorarios independientes - 8000000"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="ingCapital">Rentas de capital (arriendos, intereses, dividendos)</label>
+                <textarea id="ingCapital" class="form-textarea" placeholder="Ejemplo:&#10;Arriendo apartamento - 12000000&#10;Intereses CDT - 500000"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="ingNoLab">Rentas no laborales (ventas ocasionales, premios, otros)</label>
+                <textarea id="ingNoLab" class="form-textarea" placeholder="Ejemplo:&#10;Venta vehículo usado - 15000000"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="ingExentos">Ingresos no constitutivos de renta ni ganancia ocasional</label>
+                <textarea id="ingExentos" class="form-textarea" placeholder="Ejemplo:&#10;Aportes obligatorios a salud y pension - 5000000&#10;Indemnización por despido - 3000000"></textarea>
+            </div>
+            <div class="controls">
+                <button class="btn btn-primary" id="calcIngresos">Calcular totales</button>
+                <button class="btn btn-secondary" id="clearIngresos">Limpiar todo</button>
+            </div>
+            <div class="summary-card">
+                <div class="summary-item"><span class="summary-label">Total ingresos brutos:</span><span class="summary-value" id="totalIngresos">$0</span></div>
+                <div class="summary-item"><span class="summary-label">Total ingresos no constitutivos de renta:</span><span class="summary-value" id="totalExentos">$0</span></div>
+                <div class="summary-item"><span class="summary-label">Ingresos Netos:</span><span class="summary-value" id="ingresosGravables">$0</span></div>
+            </div>
+        </section>
+
+        <!-- STEP 3 - DEDUCCIONES -->
+        <section class="wizard-step" data-step="3">
+            <div class="section-title">📊 Deducciones y rentas exentas</div>
+            <div class="section-subtitle">Registra los gastos y aportes que la ley permite deducir.</div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label" for="dedInteresHip">Intereses préstamos vivienda (Máx 1200 UVT)</label><input id="dedInteresHip" class="form-input" type="number" placeholder="0" /></div>
+                <div class="form-group"><label class="form-label" for="dedDependientes">Gastos por dependientes (Máx 72 UVT)</label><input id="dedDependientes" class="form-input" type="number" placeholder="0" /></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label" for="dedMedicina">Medicina prepagada (Máx 192 UVT)</label><input id="dedMedicina" class="form-input" type="number" placeholder="0" /></div>
+                <div class="form-group"><label class="form-label" for="dedDonaciones">Donaciones</label><input id="dedDonaciones" class="form-input" type="number" placeholder="0" /></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="dedOtros">Otras deducciones y rentas exentas (Aportes AFC, pensiones voluntarias, etc.)</label>
+                <input id="dedOtros" class="form-input" type="number" placeholder="0" />
+            </div>
+            <div class="controls">
+                <button class="btn btn-primary" id="calcDeducciones">Calcular deducciones</button>
+                <button class="btn btn-secondary" id="clearDeducciones">Limpiar</button>
+            </div>
+            <div class="summary-card">
+                <div class="summary-item"><span class="summary-label">Total deducciones y rentas exentas:</span><span class="summary-value" id="totalDeducciones">$0</span></div>
+            </div>
+            <div class="alert alert-warning">
+                <strong>Recuerda:</strong> Debes tener los soportes de todas las deducciones que declares. La suma de deducciones y rentas exentas no puede superar el 40% de tus ingresos netos, ni 5040 UVT.
+            </div>
+        </section>
+
+        <!-- STEP 4 - CALCULOS -->
+        <section class="wizard-step" data-step="4">
+            <div class="section-title">🧮 Cálculo del impuesto</div>
+            <div class="section-subtitle">Liquidación privada del impuesto basada en la información suministrada.</div>
+            
+            <div class="form-grid two-cols">
+                <div>
+                    <div class="controls" style="margin-bottom: 1.5rem;">
+                        <button class="btn btn-primary" id="runCalc">Calcular Liquidación</button>
+                        <button class="btn btn-secondary" id="resetCalc">Limpiar</button>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="summary-item"><span class="summary-label">Ingresos Netos:</span><span class="summary-value" id="resumenIngresos">$0</span></div>
+                        <div class="summary-item"><span class="summary-label">Total Deducciones:</span><span class="summary-value" id="resumenDeducciones">$0</span></div>
+                        <div class="summary-item"><span class="summary-label">Renta Líquida Gravable:</span><span class="summary-value" id="resumenBase">$0</span></div>
+                        <div class="summary-item"><span class="summary-label">Impuesto a Cargo:</span><span class="summary-value" id="resumenImpuesto">$0</span></div>
+                    </div>
+
+                    <div class="side-card" style="margin-top: 1.5rem;">
+                        <div class="side-card-title">Retenciones y Anticipos</div>
+                        <div class="form-group"><label class="form-label" for="retenciones">Retenciones en la fuente que te practicaron</label><input id="retenciones" class="form-input" type="number" placeholder="0" /></div>
+                        <div class="form-group"><label class="form-label" for="anticipos">Anticipo de renta año anterior</label><input id="anticipos" class="form-input" type="number" placeholder="0" /></div>
+                    </div>
+
+                    <div class="summary-card" style="border-color: var(--success);">
+                        <div class="summary-item"><span class="summary-label">Saldo a pagar / (favor):</span><span class="summary-value" id="saldoFinal">$0</span></div>
+                    </div>
+                </div>
+
+                <div class="side-card">
+                    <div class="side-card-title">Tabla Impuesto de Renta (Art. 241 E.T.)</div>
+                    <div class="table-container">
+                        <table class="table" style="font-size: 0.8rem;">
+                            <thead><tr><th>Renta Líquida (UVT)</th><th>Tarifa</th></tr></thead>
+                            <tbody>
+                                <tr><td>0 a 1090</td><td>0%</td></tr>
+                                <tr><td>&gt; 1090 a 1700</td><td>19%</td></tr>
+                                <tr><td>&gt; 1700 a 4100</td><td>28%</td></tr>
+                                <tr><td>&gt; 4100 a 8670</td><td>33%</td></tr>
+                                <tr><td>&gt; 8670 a 18970</td><td>35%</td></tr>
+                                <tr><td>&gt; 18970 a 31000</td><td>37%</td></tr>
+                                <tr><td>&gt; 31000</td><td>39%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--gray-600);">El cálculo es automático. La tabla es solo de referencia.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- STEP 5 - RESUMEN -->
+        <section class="wizard-step" data-step="5">
+          <div class="section-title">📄 Resumen y exportación</div>
+          <div class="section-subtitle">Revisa todos los datos, genera el resumen final y exporta o guarda tu información.</div>
+          <div class="controls">
+            <button class="btn btn-primary" id="generateSummary">📋 Generar resumen</button>
+            <button class="btn btn-success" id="exportJSON">📥 Exportar JSON</button>
+            <button class="btn btn-success" id="exportCSV">📊 Exportar CSV</button>
+            <button class="btn btn-secondary" id="saveLocal">💾 Guardar local</button>
+            <button class="btn btn-secondary" id="loadLocal">📂 Cargar local</button>
+            <button class="btn btn-primary" id="printSummary">🖨️ Imprimir</button>
+          </div>
+          <div id="summaryBox" class="summary-card" style="margin-top: 1.5rem; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 0.875rem; max-height: 500px; overflow-y: auto; display: none; background-color: var(--gray-50);"></div>
+          <div class="alert alert-info" style="margin-top: 1.5rem;">
+            <strong>Próximos pasos:</strong>
+            <ol style="margin: 0.5rem 0 0 1.5rem;">
+              <li>Descarga o guarda este resumen.</li>
+              <li>Reúne todos los documentos soportes de la información registrada.</li>
+              <li>Ingresa a la plataforma MUISCA de la DIAN.</li>
+              <li>Completa el formulario 210 oficial con los datos de este resumen.</li>
+              <li>Presenta y paga tu declaración antes de la fecha límite.</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+
+      <div class="navigation">
+        <div class="nav-info">Paso <span id="currentStepNumber">1</span> de 6</div>
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" id="prevStep" disabled>← Anterior</button>
+          <button class="btn btn-primary" id="nextStep">Siguiente →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p><strong>⚠️ Importante:</strong> Esta es una herramienta preparatoria. No reemplaza la declaración oficial en la DIAN.</p>
+      <p>Guarda tu progreso regularmente y consulta siempre las normas oficiales vigentes.</p>
+    </div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Utilidades
+  function formatCurrency(num) {
+    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(num || 0);
+  }
+
+  function parseNumber(str) {
+    if (typeof str === 'number') return str;
+    return Number(String(str).replace(/[^\d.-]/g, '')) || 0;
+  }
+
+  // Estado global de la aplicación
+  const appState = { currentStep: 0, totalSteps: 6, assets: [], liabilities: [], calculations: { totalIngresosBrutos: 0, totalIngresosNoRenta: 0, ingresosNetos: 0, totalDeducciones: 0, rentaLiquida: 0, impuesto: 0, saldo: 0 } };
+
+  // Selectores de elementos del DOM
+  const stepButtons = document.querySelectorAll('.step-btn');
+  const wizardSteps = document.querySelectorAll('.wizard-step');
+  const prevBtn = document.getElementById('prevStep');
+  const nextBtn = document.getElementById('nextStep');
+  const progressFill = document.getElementById('progressFill');
+  const currentStepNumber = document.getElementById('currentStepNumber');
+
+  // --- NAVEGACIÓN DEL WIZARD ---
+  function updateProgress() {
+    const progress = ((appState.currentStep + 1) / appState.totalSteps) * 100;
+    progressFill.style.width = progress + '%';
+    currentStepNumber.textContent = appState.currentStep + 1;
+  }
+
+  function goToStep(stepIndex) {
+    stepIndex = Math.max(0, Math.min(appState.totalSteps - 1, stepIndex));
+    appState.currentStep = stepIndex;
+    wizardSteps.forEach(step => step.classList.remove('active'));
+    stepButtons.forEach(btn => btn.classList.remove('active'));
+    wizardSteps[stepIndex].classList.add('active');
+    stepButtons[stepIndex].classList.add('active');
+    stepButtons.forEach((btn, index) => {
+      if (index < stepIndex) btn.classList.add('completed');
+      else btn.classList.remove('completed');
+    });
+    prevBtn.disabled = stepIndex === 0;
+    nextBtn.textContent = stepIndex === appState.totalSteps - 1 ? 'Finalizar' : 'Siguiente →';
+    updateProgress();
+    if (window.innerWidth < 768) {
+      document.querySelector('.main-card').scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  stepButtons.forEach((btn, index) => btn.addEventListener('click', () => goToStep(index)));
+  prevBtn.addEventListener('click', () => goToStep(appState.currentStep - 1));
+  nextBtn.addEventListener('click', () => {
+    if (appState.currentStep === appState.totalSteps - 1) {
+      alert('Has llegado al final. Genera tu resumen si lo deseas.');
+    } else {
+      goToStep(appState.currentStep + 1);
+    }
+  });
+
+  // --- STEP 0: DATOS E IDENTIFICACIÓN ---
+  
+  // NUEVO: Lógica para calendario de vencimientos
+  function getFechaVencimiento(documento) {
+      if (!documento || documento.length < 2) return null;
+      const ultimosDosDigitos = documento.slice(-2);
+
+      // Calendario para declaración de renta año gravable 2023 (se presenta en 2024)
+      // IMPORTANTE: Este calendario debe ser actualizado anualmente.
+      const vencimientos = {
+          "01-02": "12 de Agosto de 2024", "03-04": "13 de Agosto de 2024",
+          "05-06": "14 de Agosto de 2024", "07-08": "15 de Agosto de 2024",
+          "09-10": "16 de Agosto de 2024", "11-12": "20 de Agosto de 2024",
+          "13-14": "21 de Agosto de 2024", "15-16": "22 de Agosto de 2024",
+          "17-18": "23 de Agosto de 2024", "19-20": "26 de Agosto de 2024",
+          "21-22": "27 de Agosto de 2024", "23-24": "28 de Agosto de 2024",
+          "25-26": "29 de Agosto de 2024", "27-28": "2 de Septiembre de 2024",
+          "29-30": "3 de Septiembre de 2024", "31-32": "4 de Septiembre de 2024",
+          "33-34": "5 de Septiembre de 2024", "35-36": "6 de Septiembre de 2024",
+          "37-38": "9 de Septiembre de 2024", "39-40": "10 de Septiembre de 2024",
+          "41-42": "11 de Septiembre de 2024", "43-44": "12 de Septiembre de 2024",
+          "45-46": "13 de Septiembre de 2024", "47-48": "16 de Septiembre de 2024",
+          "49-50": "17 de Septiembre de 2024", "51-52": "18 de Septiembre de 2024",
+          "53-54": "19 de Septiembre de 2024", "55-56": "20 de Septiembre de 2024",
+          "57-58": "23 de Septiembre de 2024", "59-60": "24 de Septiembre de 2024",
+          "61-62": "25 de Septiembre de 2024", "63-64": "26 de Septiembre de 2024",
+          "65-66": "27 de Septiembre de 2024", "67-68": "1 de Octubre de 2024",
+          "69-70": "2 de Octubre de 2024", "71-72": "3 de Octubre de 2024",
+          "73-74": "4 de Octubre de 2024", "75-76": "7 de Octubre de 2024",
+          "77-78": "8 de Octubre de 2024", "79-80": "9 de Octubre de 2024",
+          "81-82": "10 de Octubre de 2024", "83-84": "11 de Octubre de 2024",
+          "85-86": "15 de Octubre de 2024", "87-88": "16 de Octubre de 2024",
+          "89-90": "17 de Octubre de 2024", "91-92": "18 de Octubre de 2024",
+          "93-94": "21 de Octubre de 2024", "95-96": "22 de Octubre de 2024",
+          "97-98": "23 de Octubre de 2024", "99-00": "24 de Octubre de 2024"
+      };
+
+      if (ultimosDosDigitos === '99' || ultimosDosDigitos === '00') {
+          return vencimientos['99-00'];
+      }
+
+      for (const rango in vencimientos) {
+          if (rango === '99-00') continue; // Se maneja por separado
+          const [inicio, fin] = rango.split('-');
+          if (ultimosDosDigitos >= inicio && ultimosDosDigitos <= fin) {
+              return vencimientos[rango];
+          }
+      }
+      return null;
+  }
+
+  // Event listener para el campo de documento
+  document.getElementById('documento').addEventListener('blur', (e) => {
+      const documento = e.target.value.trim().replace(/\./g, ''); // Limpiar puntos
+      const resultDiv = document.getElementById('vencimientoResult');
+      const fecha = getFechaVencimiento(documento);
+
+      if (fecha) {
+          resultDiv.innerHTML = `<div class="alert alert-success"><strong>Fecha límite para declarar:</strong> ${fecha} (según calendario DIAN para año gravable 2023).</div>`;
+      } else {
+          resultDiv.innerHTML = ''; // Limpiar si no es un documento válido
+      }
+  });
+
+  document.getElementById('checkObligacion').addEventListener('click', () => {
+    const uvt = parseNumber(document.getElementById('uvtValue').value);
+    const ingresos = parseNumber(document.getElementById('totIngresos').value);
+    const patrimonio = parseNumber(document.getElementById('totPatrimonio').value);
+    const consumos = parseNumber(document.getElementById('totConsumos').value);
+    const resultDiv = document.getElementById('obligacionResult');
+    
+    if (!uvt) {
+      resultDiv.innerHTML = '<div class="alert alert-warning">Introduce el valor de la UVT para verificar.</div>';
+      return;
+    }
+    
+    const topes = { ingresos: 1400 * uvt, patrimonio: 4500 * uvt, consumos: 1400 * uvt };
+    const obligations = [];
+    if (ingresos >= topes.ingresos) obligations.push(`Ingresos: ${formatCurrency(ingresos)} ≥ ${formatCurrency(topes.ingresos)}`);
+    if (patrimonio >= topes.patrimonio) obligations.push(`Patrimonio: ${formatCurrency(patrimonio)} ≥ ${formatCurrency(topes.patrimonio)}`);
+    if (consumos >= topes.consumos) obligations.push(`Consumos/Consignaciones: ${formatCurrency(consumos)} ≥ ${formatCurrency(topes.consumos)}`);
+    
+    if (obligations.length > 0) {
+      resultDiv.innerHTML = `<div class="alert alert-warning"><strong>⚠️ Probable obligación de declarar:</strong><ul style="margin:0.5rem 0 0 1.2rem;padding:0;">${obligations.map(o => `<li>${o}</li>`).join('')}</ul></div>`;
+    } else {
+      resultDiv.innerHTML = `<div class="alert alert-success"><strong>✓ No parece estar obligado a declarar</strong> según los topes verificados (orientativo).</div>`;
+    }
+  });
+
+  document.getElementById('clearIdentification').addEventListener('click', () => {
+    ['nombre', 'documento', 'ciudad', 'email', 'rut', 'uvtValue', 'totIngresos', 'totPatrimonio', 'totConsumos'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('obligacionResult').innerHTML = '';
+    document.getElementById('vencimientoResult').innerHTML = '';
+  });
+
+  // --- STEP 1: PATRIMONIO ---
+  function renderPatrimonioTables() {
+    const assetsTableBody = document.querySelector('#assetsTable tbody');
+    assetsTableBody.innerHTML = appState.assets.map((asset, index) => `<tr><td>${asset.description}</td><td class="text-right">${formatCurrency(asset.value)}</td><td class="text-center"><button class="remove-btn" data-type="asset" data-index="${index}" title="Eliminar">×</button></td></tr>`).join('');
+    const liabilitiesTableBody = document.querySelector('#liabsTable tbody');
+    liabilitiesTableBody.innerHTML = appState.liabilities.map((liability, index) => `<tr><td>${liability.description}</td><td class="text-right">${formatCurrency(liability.value)}</td><td class="text-center"><button class="remove-btn" data-type="liability" data-index="${index}" title="Eliminar">×</button></td></tr>`).join('');
+    updatePatrimonioTotals();
+  }
+
+  function updatePatrimonioTotals() {
+    const totalAssets = appState.assets.reduce((sum, asset) => sum + asset.value, 0);
+    const totalLiabilities = appState.liabilities.reduce((sum, liability) => sum + liability.value, 0);
+    document.getElementById('sumAssets').textContent = formatCurrency(totalAssets);
+    document.getElementById('sumLiabs').textContent = formatCurrency(totalLiabilities);
+    document.getElementById('netPatrimony').textContent = formatCurrency(totalAssets - totalLiabilities);
+  }
+
+  document.getElementById('addAsset').addEventListener('click', () => {
+    const description = document.getElementById('assetDesc').value.trim();
+    const value = parseNumber(document.getElementById('assetValue').value);
+    if (!description || value <= 0) { alert('Ingresa descripción y valor válidos.'); return; }
+    appState.assets.push({ description, value });
+    document.getElementById('assetDesc').value = '';
+    document.getElementById('assetValue').value = '';
+    renderPatrimonioTables();
+  });
+
+  document.getElementById('addLiab').addEventListener('click', () => {
+    const description = document.getElementById('liabDesc').value.trim();
+    const value = parseNumber(document.getElementById('liabValue').value);
+    if (!description || value <= 0) { alert('Ingresa descripción y valor válidos.'); return; }
+    appState.liabilities.push({ description, value });
+    document.getElementById('liabDesc').value = '';
+    document.getElementById('liabValue').value = '';
+    renderPatrimonioTables();
+  });
+
+  document.querySelector('.step-content').addEventListener('click', (e) => {
+    if (e.target.classList.contains('remove-btn')) {
+      const type = e.target.dataset.type;
+      const index = parseInt(e.target.dataset.index, 10);
+      if (type === 'asset') appState.assets.splice(index, 1);
+      if (type === 'liability') appState.liabilities.splice(index, 1);
+      renderPatrimonioTables();
+    }
+  });
+
+  // --- STEP 2: INGRESOS ---
+  function parseIncomeText(text) {
+    if (!text.trim()) return [];
+    return text.split('\n').map(line => {
+      const match = line.match(/^(.+?)[-:]?\s*([\d\s,.]+)$/);
+      if (match) return { description: match[1].trim(), value: parseNumber(match[2]) };
+      const numberMatch = line.match(/([\d\s,.]+)$/);
+      if (numberMatch) return { description: line.replace(numberMatch[0], '').trim() || 'Ingreso sin descripción', value: parseNumber(numberMatch[0]) };
+      return { description: line, value: 0 };
+    }).filter(item => item.value > 0);
+  }
+
+  document.getElementById('calcIngresos').addEventListener('click', () => {
+    const trabajo = parseIncomeText(document.getElementById('ingTrabajo').value).reduce((s, i) => s + i.value, 0);
+    const capital = parseIncomeText(document.getElementById('ingCapital').value).reduce((s, i) => s + i.value, 0);
+    const noLaboral = parseIncomeText(document.getElementById('ingNoLab').value).reduce((s, i) => s + i.value, 0);
+    const noRenta = parseIncomeText(document.getElementById('ingExentos').value).reduce((s, i) => s + i.value, 0);
+    
+    appState.calculations.totalIngresosBrutos = trabajo + capital + noLaboral;
+    appState.calculations.totalIngresosNoRenta = noRenta;
+    appState.calculations.ingresosNetos = appState.calculations.totalIngresosBrutos - noRenta;
+    
+    document.getElementById('totalIngresos').textContent = formatCurrency(appState.calculations.totalIngresosBrutos);
+    document.getElementById('totalExentos').textContent = formatCurrency(appState.calculations.totalIngresosNoRenta);
+    document.getElementById('ingresosGravables').textContent = formatCurrency(appState.calculations.ingresosNetos);
+  });
+
+  document.getElementById('clearIngresos').addEventListener('click', () => {
+    ['ingTrabajo', 'ingCapital', 'ingNoLab', 'ingExentos'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('calcIngresos').click();
+  });
+
+  // --- STEP 3: DEDUCCIONES ---
+  document.getElementById('calcDeducciones').addEventListener('click', () => {
+    const deducciones = [ 'dedInteresHip', 'dedDependientes', 'dedMedicina', 'dedDonaciones', 'dedOtros' ].reduce((sum, id) => sum + parseNumber(document.getElementById(id).value), 0);
+    appState.calculations.totalDeducciones = deducciones;
+    document.getElementById('totalDeducciones').textContent = formatCurrency(deducciones);
+  });
+
+  document.getElementById('clearDeducciones').addEventListener('click', () => {
+    ['dedInteresHip', 'dedDependientes', 'dedMedicina', 'dedDonaciones', 'dedOtros'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('calcDeducciones').click();
+  });
+
+  // --- STEP 4: CÁLCULOS DEL IMPUESTO ---
+  function calculateTax(rentaLiquida, uvt) {
+    if (!uvt || uvt <= 0) return 0;
+    const rentaEnUvt = rentaLiquida / uvt;
+    let impuestoUvt = 0;
+
+    if (rentaEnUvt > 31000) { impuestoUvt = (rentaEnUvt - 31000) * 0.39 + 7848; } 
+    else if (rentaEnUvt > 18970) { impuestoUvt = (rentaEnUvt - 18970) * 0.37 + 3617; } 
+    else if (rentaEnUvt > 8670) { impuestoUvt = (rentaEnUvt - 8670) * 0.35 + 1022; } 
+    else if (rentaEnUvt > 4100) { impuestoUvt = (rentaEnUvt - 4100) * 0.33 + 288; } 
+    else if (rentaEnUvt > 1700) { impuestoUvt = (rentaEnUvt - 1700) * 0.28 + 116; } 
+    else if (rentaEnUvt > 1090) { impuestoUvt = (rentaEnUvt - 1090) * 0.19; }
+    
+    return Math.round(impuestoUvt * uvt);
+  }
+
+  document.getElementById('runCalc').addEventListener('click', () => {
+    const uvt = parseNumber(document.getElementById('uvtValue').value);
+    if (!uvt) {
+        alert("Por favor, introduce el valor de la UVT en el Paso 1 para poder calcular el impuesto.");
+        goToStep(0);
+        document.getElementById('uvtValue').focus();
+        return;
+    }
+    
+    const ingresosNetos = appState.calculations.ingresosNetos;
+    const totalDeducciones = appState.calculations.totalDeducciones;
+    const limiteDeducciones = Math.min(ingresosNetos * 0.4, 5040 * uvt);
+    const deduccionesAplicables = Math.min(totalDeducciones, limiteDeducciones);
+    const rentaLiquida = Math.max(0, ingresosNetos - deduccionesAplicables);
+    const impuesto = calculateTax(rentaLiquida, uvt);
+    const retenciones = parseNumber(document.getElementById('retenciones').value);
+    const anticipos = parseNumber(document.getElementById('anticipos').value);
+    
+    appState.calculations.rentaLiquida = rentaLiquida;
+    appState.calculations.impuesto = impuesto;
+    appState.calculations.saldo = impuesto - retenciones - anticipos;
+    
+    document.getElementById('resumenIngresos').textContent = formatCurrency(ingresosNetos);
+    document.getElementById('resumenDeducciones').textContent = `${formatCurrency(deduccionesAplicables)} (Aplicado)`;
+    document.getElementById('resumenBase').textContent = formatCurrency(rentaLiquida);
+    document.getElementById('resumenImpuesto').textContent = formatCurrency(impuesto);
+    document.getElementById('saldoFinal').textContent = formatCurrency(appState.calculations.saldo);
+  });
+
+  document.getElementById('resetCalc').addEventListener('click', () => {
+    ['retenciones', 'anticipos'].forEach(id => document.getElementById(id).value = '');
+    ['resumenIngresos', 'resumenDeducciones', 'resumenBase', 'resumenImpuesto', 'saldoFinal'].forEach(id => document.getElementById(id).textContent = '$0');
+    appState.calculations.rentaLiquida = 0;
+    appState.calculations.impuesto = 0;
+    appState.calculations.saldo = 0;
+  });
+
+  // --- STEP 5: RESUMEN Y EXPORTACIÓN ---
+  function buildCompleteData() {
+    return {
+      datosPersonales: { nombre: document.getElementById('nombre').value, documento: document.getElementById('documento').value, ciudad: document.getElementById('ciudad').value, email: document.getElementById('email').value, rut: document.getElementById('rut').value, uvt: parseNumber(document.getElementById('uvtValue').value) },
+      patrimonio: { activos: appState.assets, pasivos: appState.liabilities, totales: { activos: appState.assets.reduce((s, a) => s + a.value, 0), pasivos: appState.liabilities.reduce((s, l) => s + l.value, 0), patrimonioNeto: appState.assets.reduce((s, a) => s + a.value, 0) - appState.liabilities.reduce((s, l) => s + l.value, 0) } },
+      ingresos: { brutos: appState.calculations.totalIngresosBrutos, noConstitutivos: appState.calculations.totalIngresosNoRenta, netos: appState.calculations.ingresosNetos },
+      deducciones: { totalRegistrado: appState.calculations.totalDeducciones, totalAplicado: Math.min(appState.calculations.totalDeducciones, Math.min(appState.calculations.ingresosNetos * 0.4, 5040 * parseNumber(document.getElementById('uvtValue').value))) },
+      calculos: { rentaLiquida: appState.calculations.rentaLiquida, impuesto: appState.calculations.impuesto, retenciones: parseNumber(document.getElementById('retenciones').value), anticipos: parseNumber(document.getElementById('anticipos').value), saldoFinal: appState.calculations.saldo },
+      fechaGeneracion: new Date().toISOString()
+    };
+  }
+
+  function generateSummary() {
+    const data = buildCompleteData();
+    const summaryBox = document.getElementById('summaryBox');
+    summaryBox.textContent = `
+═══════════════════════════════════════════════════════════════
+        RESUMEN DECLARACIÓN DE RENTA (PREPARATORIO)
+═══════════════════════════════════════════════════════════════
+📋 DATOS PERSONALES
+───────────────────────────────────────────────────────────────
+Nombre:        ${data.datosPersonales.nombre || 'N/A'}
+Documento:     ${data.datosPersonales.documento || 'N/A'}
+Ciudad:        ${data.datosPersonales.ciudad || 'N/A'}
+Valor UVT:     ${formatCurrency(data.datosPersonales.uvt)}
+
+🏠 PATRIMONIO
+───────────────────────────────────────────────────────────────
+Total Activos:      ${formatCurrency(data.patrimonio.totales.activos)}
+Total Pasivos:      ${formatCurrency(data.patrimonio.totales.pasivos)}
+Patrimonio Neto:    ${formatCurrency(data.patrimonio.totales.patrimonioNeto)}
+
+💰 INGRESOS
+───────────────────────────────────────────────────────────────
+Ingresos Brutos:                 ${formatCurrency(data.ingresos.brutos)}
+(-) Ingresos No Renta:           ${formatCurrency(data.ingresos.noConstitutivos)}
+(=) Ingresos Netos:              ${formatCurrency(data.ingresos.netos)}
+
+📊 DEDUCCIONES Y RENTAS EXENTAS
+───────────────────────────────────────────────────────────────
+Total Registrado:                ${formatCurrency(data.deducciones.totalRegistrado)}
+Total Aplicado (con límites):    ${formatCurrency(data.deducciones.totalAplicado)}
+
+🧮 LIQUIDACIÓN PRIVADA (ESTIMACIÓN)
+───────────────────────────────────────────────────────────────
+Renta Líquida Gravable:          ${formatCurrency(data.calculos.rentaLiquida)}
+(=) Impuesto a Cargo:            ${formatCurrency(data.calculos.impuesto)}
+(-) Retenciones:                 ${formatCurrency(data.calculos.retenciones)}
+(-) Anticipo año anterior:       ${formatCurrency(data.calculos.anticipos)}
+───────────────────────────────────────────────────────────────
+(=) SALDO A PAGAR / (FAVOR):     ${formatCurrency(data.calculos.saldoFinal)}
+${data.calculos.saldoFinal < 0 ? '      (SALDO A FAVOR)' : ''}
+═══════════════════════════════════════════════════════════════
+📅 Generado: ${new Date().toLocaleString('es-CO')}
+═══════════════════════════════════════════════════════════════
+`;
+    summaryBox.style.display = 'block';
+  }
+
+  document.getElementById('generateSummary').addEventListener('click', generateSummary);
+  document.getElementById('exportJSON').addEventListener('click', () => {
+    const data = buildCompleteData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `preparacion_renta_${data.datosPersonales.documento || 'contribuyente'}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById('exportCSV').addEventListener('click', () => {
+    const data = buildCompleteData();
+    let csv = 'Sección,Concepto,Valor\n';
+    csv += `Liquidación,Impuesto a Cargo,${data.calculos.impuesto}\n`;
+    csv += `Liquidación,Saldo Final,${data.calculos.saldoFinal}\n`;
+    data.patrimonio.activos.forEach(a => { csv += `Activos,"${a.description.replace(/"/g, '""')}",${a.value}\n`; });
+    data.patrimonio.pasivos.forEach(p => { csv += `Pasivos,"${p.description.replace(/"/g, '""')}",${p.value}\n`; });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `resumen_renta_${data.datosPersonales.documento || 'contribuyente'}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById('saveLocal').addEventListener('click', () => {
+    try {
+      localStorage.setItem('rentaPrepData', JSON.stringify(buildCompleteData()));
+      alert('¡Progreso guardado en el navegador!');
+    } catch (e) {
+      alert("No se pudo guardar el progreso. El almacenamiento local puede estar lleno o deshabilitado.");
+    }
+  });
+  document.getElementById('loadLocal').addEventListener('click', () => {
+    const savedData = localStorage.getItem('rentaPrepData');
+    if (savedData && confirm('¿Deseas cargar los datos guardados? Se sobrescribirá la información actual.')) {
+      try {
+        const data = JSON.parse(savedData);
+        document.getElementById('nombre').value = data.datosPersonales.nombre || '';
+        document.getElementById('documento').value = data.datosPersonales.documento || '';
+        document.getElementById('ciudad').value = data.datosPersonales.ciudad || '';
+        document.getElementById('email').value = data.datosPersonales.email || '';
+        document.getElementById('rut').value = data.datosPersonales.rut || '';
+        document.getElementById('uvtValue').value = data.datosPersonales.uvt || '';
+        appState.assets = data.patrimonio.activos || [];
+        appState.liabilities = data.patrimonio.pasivos || [];
+        renderPatrimonioTables();
+        alert('Datos cargados exitosamente.');
+        goToStep(0);
+      } catch (e) {
+        alert('No se pudo cargar la información. Los datos guardados podrían estar corruptos.');
+      }
+    } else if (!savedData) {
+      alert('No se encontraron datos guardados en este navegador.');
+    }
+  });
+  document.getElementById('printSummary').addEventListener('click', () => {
+    generateSummary();
+    const summaryContent = document.getElementById('summaryBox').textContent;
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`<pre>${summaryContent}</pre>`);
+    printWindow.document.close();
+    printWindow.print();
+  });
+  
+  // Iniciar la aplicación
+  goToStep(0);
+});
+</script>
+</body>
+</html>```
